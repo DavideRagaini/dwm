@@ -11,14 +11,14 @@ static const int swallowfloating    = 0;        /* 1 means swallow floating wind
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Terminal:size=10", "Iosevka:pixelsize=8:antialias=true:autohint=true"  };
-static char dmenufont[]             = "SourceCodePro:size=26";
-static char normbgcolor[]           = "#000000";
-static char normbordercolor[]       = "#707870";
-static char normfgcolor[]           = "#BD93F9"; //815ba4
-static char selfgcolor[]            = "#571dc2";
+static const char *fonts[]          = { "Iosevka:size=12", "Inconsolata:pixelsize=12:antialias=true:autohint=true"  };
+static char dmenufont[]             = "Iosevka:size=30";
+static char normbgcolor[]           = "#2F0B3A";
+static char normbordercolor[]       = "#BD93F9"; //707870
+static char normfgcolor[]           = "#cc00cc"; //815ba4
+static char selfgcolor[]            = "#dddddd";
 static char selbordercolor[]        = "#FF00FF";
-static char selbgcolor[]            = "#BD93F9"; //815ba4
+static char selbgcolor[]            = "#571dc2"; //815ba4
 static char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -204,7 +204,7 @@ static Key keys[] = {
 
 	/* { MODKEY,			XK_F1,		spawn,		SHCMD("groff -mom /usr/local/share/dwm/larbs.mom -Tpdf | zathura -") }, */
 	{ MODKEY,			XK_F2,		spawn,		SHCMD("killall -q dwmblocks; setsid dwmblocks &") },
-	{ MODKEY,			XK_F3,		spawn,		SHCMD("output-video; pkill -RTMIN+4 dwmblocks") },
+	{ MODKEY,			XK_F3,		spawn,		SHCMD("output-video") },
 	{ MODKEY|ShiftMask,		XK_F3,		spawn,		SHCMD("displayselect") },
 	{ MODKEY,			XK_F4,		spawn,		SHCMD("timeOnPc suspend") },
 	{ MODKEY|ShiftMask,		XK_F4,		spawn,		SHCMD("timeOnPc hibernate") },
@@ -228,7 +228,7 @@ static Key keys[] = {
 	/* { MODKEY,			XK_Scroll_Lock,	spawn,		SHCMD("killall screenkey || screenkey &") }, */
 
 	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("amixer set -q Master toggle; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY, XF86XK_AudioMute,	spawn,		SHCMD("output-audio; pkill -RTMIN+12 dwmblocks") },
+	{ MODKEY, XF86XK_AudioMute,	spawn,		SHCMD("output-audio") },
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("amixer sset -q Master 5%+; kill -44 $(pidof dwmblocks)") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("amixer sset -q Master 5%-; kill -44 $(pidof dwmblocks)") },
 	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("mpc prev; pkill -RTMIN+11 dwmblocks") },
@@ -250,9 +250,10 @@ static Key keys[] = {
 	/* { 0, XF86XK_MyComputer,		spawn,		SHCMD("st -e lf /") }, */
 	/* { 0, XF86XK_Battery,		spawn,		SHCMD("") }, */
 	{ 0, XF86XK_HomePage,		spawn,		SHCMD("$BROWSER") },
-	{ 0, XF86XK_Search,		spawn,	SHCMD("st -e lf") },
+	{ 0, XF86XK_Search,		spawn,		SHCMD("st -e lf") },
 	{ 0, XF86XK_Favorites,		togglescratch,	{.ui = 0 } },
-	/* { 0, XF86XK_Launch5,		spawn,		SHCMD("xset dpms force off") }, */
+	{ 0, XF86XK_Launch5,		spawn,		SHCMD("winmpv") },
+	{ ShiftMask,XF86XK_Launch5,	spawn,		SHCMD("winmpv playclip") },
 	{ 0, XF86XK_Launch6,		spawn,		SHCMD("st -e ncmpcpp; pkill -RTMIN+11 dwmblocks") },
 	{ 0, XF86XK_Launch7,		spawn,		SHCMD("st -e pulsemixer; kill -44 $(pidof dwmblocks)") },
 	{ 0, XF86XK_Launch8,		spawn,		SHCMD("mpc prev; pkill -RTMIN+11 dwmblocks") },
