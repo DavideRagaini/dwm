@@ -29,12 +29,22 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
-const char *spcmd2[] = {"st", "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
+const char *spcmd0[] = {"st", "-n", "spterm", "-g", "120x40", NULL };
+const char *spcmd1[] = {"st", "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
+const char *spcmd2[] = {"st", "-n", "spaudio", "-g", "120x20", "-e", "pulsemixer", NULL };
+const char *spcmd3[] = {"st", "-n", "spncmpcpp", "-g", "120x35", "-e", "ncmpcpp", NULL };
+const char *spcmd4[] = {"st", "-n", "spspotify", "-g", "120x50", "-e", "spotify", NULL };
+const char *spcmd5[] = {"st", "-n", "splf", "-g", "120x30", "-e", "lf", NULL };
+/* const char *spcmd6[] = {"st", "-n", "spscratch", "-g", "125x40", "-e", "vim", "~/.config/void/vimwiki/Scratch.md", NULL }; */
 static Sp scratchpads[] = {
 	/* name          cmd  */
-	{"spterm",      spcmd1},
-	{"spranger",    spcmd2},
+	{"spterm",	spcmd0},
+	{"spcalc",	spcmd1},
+	{"spaudio",	spcmd2},
+	{"spncmpcpp",	spcmd3},
+	{"spspotify",	spcmd4},
+	{"splf",	spcmd5},
+	/* {"spscratch",	spcmd6}, */
 };
 
 /* tagging */
@@ -51,6 +61,11 @@ static const Rule rules[] = {
 	{ NULL,       NULL,       "Event Tester", 0,        0,           0,         1,        -1 },
 	{ NULL,      "spterm",    NULL,       SPTAG(0),     1,           1,         0,        -1 },
 	{ NULL,      "spcalc",    NULL,       SPTAG(1),     1,           1,         0,        -1 },
+	{ NULL,      "spaudio",   NULL,       SPTAG(2),     1,           1,         0,        -1 },
+	{ NULL,      "spncmpcpp", NULL,       SPTAG(3),     1,           1,         0,        -1 },
+	{ NULL,      "spspotify", NULL,       SPTAG(4),     1,           1,         0,        -1 },
+	{ NULL,      "splf",      NULL,       SPTAG(5),     1,           1,         0,        -1 },
+	/* { NULL,      "spscratch", NULL,       SPTAG(6),     1,           1,         0,        -1 }, */
 };
 
 /* layout(s) */
@@ -248,17 +263,22 @@ static Key keys[] = {
 	/* { 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") }, */
 	/* { 0, XF86XK_TaskPane,		spawn,		SHCMD("st -e htop") }, */
 	{ 0, XF86XK_Mail,		spawn,		SHCMD("st -e vim ~/vimwiki/Scratch.md") },
+	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 6} }, */
 	/* { 0, XF86XK_MyComputer,		spawn,		SHCMD("st -e lf /") }, */
 	/* { 0, XF86XK_Battery,		spawn,		SHCMD("") }, */
 	{ 0, XF86XK_HomePage,		spawn,		SHCMD("$BROWSER") },
 	{ MODKEY, XF86XK_HomePage,	spawn,		SHCMD("firefox --private-window") },
-	{ 0, XF86XK_Search,		spawn,		SHCMD("st -e lf") },
+	{ 0, XF86XK_Search,		togglescratch,	{.ui = 5 } },
+	{ MODKEY, XF86XK_Search,	spawn,		SHCMD("st -e lf") },
 	{ 0, XF86XK_Favorites,		togglescratch,	{.ui = 0 } },
 	{ 0, XF86XK_Launch5,		spawn,		SHCMD("winmpv") },
 	{ ControlMask, XF86XK_Launch5,	spawn,		SHCMD("winmpv queueclip") },
 	{ ShiftMask,XF86XK_Launch5,	spawn,		SHCMD("winmpv playclip") },
-	{ 0, XF86XK_Launch6,		spawn,		SHCMD("st -e ncmpcpp; pkill -RTMIN+11 dwmblocks") },
-	{ 0, XF86XK_Launch7,		spawn,		SHCMD("st -e pulsemixer; kill -44 $(pidof dwmblocks)") },
+	/* { 0, XF86XK_Launch6,		spawn,		SHCMD("st -e ncmpcpp; pkill -RTMIN+11 dwmblocks") }, */
+	{ 0, XF86XK_Launch6,		togglescratch,	{.ui = 3 } },
+	{ MODKEY, XF86XK_Launch6,	togglescratch,	{.ui = 4 } },
+	/* { 0, XF86XK_Launch7,		spawn,		SHCMD("st -e pulsemixer; kill -44 $(pidof dwmblocks)") }, */
+	{ 0, XF86XK_Launch7,		togglescratch,	{.ui = 2 } },
 	{ 0, XF86XK_Launch8,		spawn,		SHCMD("dmpc prev") },
 	{ 0, XF86XK_Launch9,		spawn,		SHCMD("dmpc next") },
 	{ 0, XF86XK_Back,		shiftview,	{ .i = -1 } },
