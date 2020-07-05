@@ -33,9 +33,9 @@ const char *spcmd0[] = {"st", "-n", "spterm", "-g", "120x40", NULL };
 const char *spcmd1[] = {"st", "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
 const char *spcmd2[] = {"st", "-n", "spaudio", "-g", "120x20", "-e", "pulsemixer", NULL };
 const char *spcmd3[] = {"st", "-n", "spncmpcpp", "-g", "120x35", "-e", "ncmpcpp", NULL };
-const char *spcmd4[] = {"st", "-n", "spspotify", "-g", "120x50", "-e", "spotify", NULL };
+const char *spcmd4[] = {"st", "-n", "spspotify", "-g", "140x35", "-e", "spotify", NULL };
 const char *spcmd5[] = {"st", "-n", "splf", "-g", "120x30", "-e", "lf", NULL };
-/* const char *spcmd6[] = {"st", "-n", "spscratch", "-g", "125x40", "-e", "vim", "~/.config/void/vimwiki/Scratch.md", NULL }; */
+/* const char *spcmd6[] = {"st", "-n", "spscratch", "-g", "125x40", "-e", "vim ~/.config/void/vimwiki/Scratch.md", NULL }; */
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",	spcmd0},
@@ -48,7 +48,9 @@ static Sp scratchpads[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+/* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
+static const char *tags[] = { "1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 " }; //ﭬ
+/* static const char *tags[] = { "  ", " ", " ﭬ", " ", " ", " ", " ", " ", " " }; */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -137,9 +139,10 @@ static Key keys[] = {
 	{ MODKEY,			XK_0,		view,		{.ui = ~0 } },
 	{ MODKEY|ShiftMask,		XK_0,		tag,		{.ui = ~0 } },
 	{ MODKEY,			XK_BackSpace,	spawn,		SHCMD("timeOnPc shutdown") },
-	{ MODKEY|ShiftMask,		XK_BackSpace,	spawn,		SHCMD("timeOnPc reboot") },
+	{ MODKEY|ShiftMask,		XK_BackSpace,	spawn,		SHCMD("timeOnPc") },
 
-	{ MODKEY,			XK_Tab,		view,		{0} },
+	{ MODKEY,			XK_Tab,		swapfocus,	{.i = -1 } },
+	{ MODKEY|ShiftMask,		XK_Tab,		view,		{0} },
 	/* { MODKEY|ShiftMask,		XK_Tab,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_q,		killclient,	{0} },
 	/* { MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("sysact") }, */
@@ -221,8 +224,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_F2,		spawn,		SHCMD("killall -q dwmblocks; setsid dwmblocks &") },
 	{ MODKEY,			XK_F3,		spawn,		SHCMD("output-video") },
 	{ MODKEY|ShiftMask,		XK_F3,		spawn,		SHCMD("displayselect") },
-	{ MODKEY,			XK_F4,		spawn,		SHCMD("timeOnPc suspend") },
-	{ MODKEY|ShiftMask,		XK_F4,		spawn,		SHCMD("timeOnPc hibernate") },
+	/* { MODKEY,			XK_F4,		spawn,		SHCMD("timeOnPc suspend") }, */
+	/* { MODKEY|ShiftMask,		XK_F4,		spawn,		SHCMD("timeOnPc hibernate") }, */
 	{ MODKEY,			XK_F5,		spawn,		SHCMD("xrdb ~/.config/Xresources") },
 	{ MODKEY|ShiftMask,		XK_F5,		spawn,		SHCMD("xrdb -remove ~/.config/Xresources") },
 	{ MODKEY,			XK_F6,		spawn,		SHCMD("torwrap") },
@@ -244,6 +247,7 @@ static Key keys[] = {
 
 	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("amixer set -q Master toggle; kill -44 $(pidof dwmblocks)") },
 	{ MODKEY, XF86XK_AudioMute,	spawn,		SHCMD("output-audio") },
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("amixer sset -q Master 5%+; kill -44 $(pidof dwmblocks)") },
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("amixer sset -q Master 5%+; kill -44 $(pidof dwmblocks)") },
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("amixer sset -q Master 5%-; kill -44 $(pidof dwmblocks)") },
 	/* { 0, XF86XK_AudioPrev,		spawn,		SHCMD("dmpc prev") }, */
@@ -267,20 +271,21 @@ static Key keys[] = {
 	/* { 0, XF86XK_MyComputer,		spawn,		SHCMD("st -e lf /") }, */
 	/* { 0, XF86XK_Battery,		spawn,		SHCMD("") }, */
 	{ 0, XF86XK_HomePage,		spawn,		SHCMD("$BROWSER") },
-	{ MODKEY, XF86XK_HomePage,	spawn,		SHCMD("firefox --private-window") },
+	{ MODKEY, XF86XK_HomePage,	spawn,		SHCMD("chromium --incognito") },
 	{ 0, XF86XK_Search,		togglescratch,	{.ui = 5 } },
 	{ MODKEY, XF86XK_Search,	spawn,		SHCMD("st -e lf") },
 	{ 0, XF86XK_Favorites,		togglescratch,	{.ui = 0 } },
 	{ 0, XF86XK_Launch5,		spawn,		SHCMD("winmpv") },
-	{ ControlMask, XF86XK_Launch5,	spawn,		SHCMD("winmpv queueclip") },
-	{ ShiftMask,XF86XK_Launch5,	spawn,		SHCMD("winmpv playclip") },
+	/* { ControlMask, XF86XK_Launch5,	spawn,		SHCMD("winmpv queueclip") }, */
+	/* { ShiftMask,XF86XK_Launch5,	spawn,		SHCMD("winmpv playclip") }, */
 	/* { 0, XF86XK_Launch6,		spawn,		SHCMD("st -e ncmpcpp; pkill -RTMIN+11 dwmblocks") }, */
-	{ 0, XF86XK_Launch6,		togglescratch,	{.ui = 3 } },
-	{ MODKEY, XF86XK_Launch6,	togglescratch,	{.ui = 4 } },
+	{ 0, XF86XK_Launch6,		togglescratch,	{.ui = 4 } },
+	{ MODKEY, XF86XK_Launch6,	togglescratch,	{.ui = 3 } },
 	/* { 0, XF86XK_Launch7,		spawn,		SHCMD("st -e pulsemixer; kill -44 $(pidof dwmblocks)") }, */
 	{ 0, XF86XK_Launch7,		togglescratch,	{.ui = 2 } },
 	{ 0, XF86XK_Launch8,		spawn,		SHCMD("dmpc prev") },
 	{ 0, XF86XK_Launch9,		spawn,		SHCMD("dmpc next") },
+	{ MODKEY, XF86XK_Launch9,	spawn,		SHCMD("input-volume") },
 	{ 0, XF86XK_Back,		shiftview,	{ .i = -1 } },
 	{ 0, XF86XK_Forward,		shiftview,	{ .i = 1 } },
 	/* { 0, XF86XK_TouchpadToggle,	spawn,		SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") }, */
