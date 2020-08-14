@@ -35,6 +35,8 @@ const char *spcmd2[] = {"st", "-n", "spaudio", "-g", "120x20", "-e", "pulsemixer
 const char *spcmd3[] = {"st", "-n", "spncmpcpp", "-g", "120x35", "-e", "ncmpcpp", NULL };
 const char *spcmd4[] = {"st", "-n", "spspotify", "-g", "120x50", "-e", "spotify", NULL };
 const char *spcmd5[] = {"st", "-n", "splf", "-g", "120x30", "-e", "lf", NULL };
+const char *spcmd6[] = {"st", "-n", "spnews", "-g", "120x45", "-e", "newsboat", NULL };
+const char *spcmd7[] = {"st", "-n", "spgotop", "-g", "130x40", "-e", "gotop", NULL };
 /* const char *spcmd6[] = {"st", "-n", "spscratch", "-g", "125x40", "-e", "vim", "~/.config/void/vimwiki/Scratch.md", NULL }; */
 static Sp scratchpads[] = {
 	/* name          cmd  */
@@ -44,11 +46,14 @@ static Sp scratchpads[] = {
 	{"spncmpcpp",	spcmd3},
 	{"spspotify",	spcmd4},
 	{"splf",	spcmd5},
+	{"spnews",	spcmd6},
+	{"spgotop",	spcmd7},
 	/* {"spscratch",	spcmd6}, */
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+/* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
+static const char *tags[] = { "1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 " }; //ﭬ
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -60,11 +65,13 @@ static const Rule rules[] = {
 	{ "St",       NULL,       NULL,       0,            0,           1,         0,        -1 },
 	{ NULL,       NULL,       "Event Tester", 0,        0,           0,         1,        -1 },
 	{ NULL,      "spterm",    NULL,       SPTAG(0),     1,           1,         0,        -1 },
-	{ NULL,      "spcalc",      NULL,       SPTAG(1),     1,           1,         0,        -1 },
+	{ NULL,      "spcalc",    NULL,       SPTAG(1),     1,           1,         0,        -1 },
 	{ NULL,      "spaudio",   NULL,       SPTAG(2),     1,           1,         0,        -1 },
 	{ NULL,      "spncmpcpp", NULL,       SPTAG(3),     1,           1,         0,        -1 },
 	{ NULL,      "spspotify", NULL,       SPTAG(4),     1,           1,         0,        -1 },
 	{ NULL,      "splf",      NULL,       SPTAG(5),     1,           1,         0,        -1 },
+	{ NULL,      "spnews",    NULL,       SPTAG(6),     1,           1,         0,        -1 },
+	{ NULL,      "spgotop",   NULL,       SPTAG(7),     1,           1,         0,        -1 },
 	/* { NULL,      "spscratch", NULL,       SPTAG(6),     1,           1,         0,        -1 }, */
 };
 
@@ -139,7 +146,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_BackSpace,	spawn,		SHCMD("timeOnPc shutdown") },
 	{ MODKEY|ShiftMask,		XK_BackSpace,	spawn,		SHCMD("timeOnPc") },
 
-	{ MODKEY,			XK_Tab,		view,		{0} },
+	{ MODKEY,			XK_Tab,		swapfocus,	{.i = -1 } },
+	{ MODKEY|ShiftMask,		XK_Tab,		view,		{0} },
 	/* { MODKEY|ShiftMask,		XK_Tab,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_q,		killclient,	{0} },
 	/* { MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("sysact") }, */
@@ -202,7 +210,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_b,		togglebar,	{0} },
 	/* { MODKEY|ShiftMask,		XK_b,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_n,		spawn,		SHCMD("st -e nvim -c VimwikiIndex") },
-	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("st -e newsboat; pkill -RTMIN+6 dwmblocks") },
+	{ MODKEY|ShiftMask,		XK_n,		togglescratch,	{.ui = 6} },
 	/* { MODKEY,			XK_m,		spawn,		SHCMD("st -e ncmpcpp; pkill -RTMIN+11 dwmblocks") }, */
 	{ MODKEY,			XK_m,		togglescratch,	{.ui = 3} },
 	{ MODKEY|ShiftMask,		XK_m,		togglescratch,	{.ui = 4} },
@@ -224,15 +232,15 @@ static Key keys[] = {
 
 	/* { MODKEY,			XK_F1,		spawn,		SHCMD("groff -mom /usr/local/share/dwm/larbs.mom -Tpdf | zathura -") }, */
 	{ MODKEY,			XK_F2,		spawn,		SHCMD("killall -q dwmblocks; setsid dwmblocks &") },
-	{ MODKEY,			XK_F3,		spawn,		SHCMD("t-wifi") },
-	/* { 0,				XF86XK_WWAN,	spawn,		SHCMD("t-wifi") }, */
+	{ MODKEY,			XK_F3,		spawn,		SHCMD("t-wifi wifi") },
+	/* { 0,				XF86XK_WWAN,	spawn,		SHCMD("t-wifi wifi") }, */
 	{ MODKEY|ShiftMask,		XK_F3,		spawn,		SHCMD("t-bluetooth") },
 	/* { MODKEY,			XF86XK_WWAN,	spawn,		SHCMD("t-bluetooth") }, */
 	/* { MODKEY,			XK_F3,		spawn,		SHCMD("displayselect") }, */
 	/* { MODKEY,			XK_F4,		spawn,		SHCMD("timeOnPc suspend") }, */
 	/* { MODKEY|ShiftMask,		XK_F4,		spawn,		SHCMD("timeOnPc hibernate") }, */
-	/* { MODKEY,			XK_F5,		spawn,		SHCMD("xrdb ~/.config/Xresources") }, */
-	/* { MODKEY|ShiftMask,		XK_F5,		spawn,		SHCMD("xrdb -remove ~/.config/Xresources") }, */
+	{ MODKEY,			XK_F5,		spawn,		SHCMD("xrdb ~/.config/Xresources") },
+	{ MODKEY|ShiftMask,		XK_F5,		spawn,		SHCMD("xrdb -remove ~/.config/Xresources") },
 	/* { MODKEY,			XK_F6,		spawn,		SHCMD("torwrap") }, */
 	{ MODKEY,			XK_F7,		spawn,		SHCMD("i3lock -e -f -c 1d2021 -i ~/.config/Icons/lockscreen.png; xset dpms force off") },
 	/* { MODKEY,			XK_F8,		spawn,		SHCMD("mailsync") }, */
@@ -248,6 +256,7 @@ static Key keys[] = {
 	{ ShiftMask,			XK_Print,	spawn,		SHCMD("maimpick") },
 	/* { MODKEY,			XK_Print,	spawn,		SHCMD("dmenurecord") }, */
 	/* { MODKEY|ShiftMask,		XK_Print,	spawn,		SHCMD("dmenurecord kill") }, */
+	{ MODKEY,			XK_Delete,	togglescratch,	{.ui = 7} },
 	/* { MODKEY,			XK_Delete,	spawn,		SHCMD("dmenurecord kill") }, */
 	/* { MODKEY,			XK_Scroll_Lock,	spawn,		SHCMD("killall screenkey || screenkey &") }, */
 
@@ -288,7 +297,9 @@ static Key keys[] = {
 	/* { 0, XF86XK_TouchpadOff,	spawn,		SHCMD("synclient TouchpadOff=1") }, */
 	/* { 0, XF86XK_TouchpadOn,		spawn,		SHCMD("synclient TouchpadOff=0") }, */
 	{ 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 15; pkill -RTMIN+6 dwmblocks") },
+	{ MODKEY, XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 5; pkill -RTMIN+6 dwmblocks") },
 	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 15; pkill -RTMIN+6 dwmblocks") },
+	{ MODKEY, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 5; pkill -RTMIN+6 dwmblocks") },
 
 	/* { MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } }, */
 	/* { MODKEY|Mod4Mask,              XK_l,      incrgaps,       {.i = -1 } }, */
