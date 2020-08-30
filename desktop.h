@@ -11,7 +11,7 @@ static const int swallowfloating    = 0;        /* 1 means swallow floating wind
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Iosevka:size=8", "Inconsolata:pixelsize=8:antialias=true:autohint=true"  };
+static const char *fonts[]          = { "Iosevka:size=12", "Inconsolata:pixelsize=12:antialias=true:autohint=true"  };
 static char dmenufont[]             = "Iosevka:size=30";
 static char normbgcolor[]           = "#2F0B3A";
 static char normbordercolor[]       = "#BD93F9"; //707870
@@ -33,8 +33,11 @@ const char *spcmd0[] = {"st", "-n", "spterm", "-g", "120x40", NULL };
 const char *spcmd1[] = {"st", "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
 const char *spcmd2[] = {"st", "-n", "spaudio", "-g", "120x20", "-e", "pulsemixer", NULL };
 const char *spcmd3[] = {"st", "-n", "spncmpcpp", "-g", "120x35", "-e", "ncmpcpp", NULL };
-const char *spcmd4[] = {"st", "-n", "spspotify", "-g", "140x35", "-e", "spotify", NULL };
+const char *spcmd4[] = {"st", "-n", "spspotify", "-g", "140x35", "-e", "startspotify", NULL };
 const char *spcmd5[] = {"st", "-n", "splf", "-g", "120x30", "-e", "lf", NULL };
+const char *spcmd6[] = {"st", "-n", "spnews", "-g", "120x45", "-e", "newsboat", NULL };
+const char *spcmd7[] = {"st", "-n", "spgotop", "-g", "130x40", "-e", "gotop", NULL };
+const char *spcmd8[] = {"st", "-n", "spranger", "-g", "120x30", "-e", "ranger", NULL };
 /* const char *spcmd6[] = {"st", "-n", "spscratch", "-g", "125x40", "-e", "vim ~/.config/void/vimwiki/Scratch.md", NULL }; */
 static Sp scratchpads[] = {
 	/* name          cmd  */
@@ -44,6 +47,9 @@ static Sp scratchpads[] = {
 	{"spncmpcpp",	spcmd3},
 	{"spspotify",	spcmd4},
 	{"splf",	spcmd5},
+	{"spnews",	spcmd6},
+	{"spgotop",	spcmd7},
+	{"spranger",	spcmd8},
 	/* {"spscratch",	spcmd6}, */
 };
 
@@ -67,6 +73,9 @@ static const Rule rules[] = {
 	{ NULL,      "spncmpcpp", NULL,       SPTAG(3),     1,           1,         0,        -1 },
 	{ NULL,      "spspotify", NULL,       SPTAG(4),     1,           1,         0,        -1 },
 	{ NULL,      "splf",      NULL,       SPTAG(5),     1,           1,         0,        -1 },
+	{ NULL,      "spnews",    NULL,       SPTAG(6),     1,           1,         0,        -1 },
+	{ NULL,      "spgotop",   NULL,       SPTAG(7),     1,           1,         0,        -1 },
+	{ NULL,      "spranger",  NULL,       SPTAG(8),     1,           1,         0,        -1 },
 	/* { NULL,      "spscratch", NULL,       SPTAG(6),     1,           1,         0,        -1 }, */
 };
 
@@ -156,7 +165,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_t,		setlayout,	{.v = &layouts[1]} },
 	{ MODKEY,			XK_y,		setlayout,	{.v = &layouts[2]} },
 	{ MODKEY|ShiftMask,		XK_y,		setlayout,	{.v = &layouts[3]} },
-	{ MODKEY,			XK_u,		setlayout,	{.v = &layouts[4]} },
+	/* { MODKEY,			XK_u,		setlayout,	{.v = &layouts[4]} }, */
 	{ MODKEY|ShiftMask,		XK_u,		setlayout,	{.v = &layouts[5]} },
 	{ MODKEY,			XK_i,		setlayout,	{.v = &layouts[6]} },
 	{ MODKEY|ShiftMask,		XK_i,		setlayout,	{.v = &layouts[7]} },
@@ -202,8 +211,9 @@ static Key keys[] = {
 	{ MODKEY,			XK_b,		togglebar,	{0} },
 	/* { MODKEY|ShiftMask,		XK_b,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_n,		spawn,		SHCMD("st -e nvim -c VimwikiIndex") },
-	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("st -e newsboat; pkill -RTMIN+6 dwmblocks") },
-	{ MODKEY,			XK_m,		spawn,		SHCMD("st -e ncmpcpp") },
+	{ MODKEY|ShiftMask,		XK_n,		togglescratch,	{.ui = 6} },
+	/* { MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("st -e newsboat; pkill -RTMIN+6 dwmblocks") }, */
+	{ MODKEY,			XK_m,		togglescratch,	{.ui = 3 } },
 	/* { MODKEY,			XK_comma,	spawn,		SHCMD("mpc prev") }, */
 	/* { MODKEY|ShiftMask,		XK_comma,	spawn,		SHCMD("mpc seek 0%") }, */
 	/* { MODKEY,			XK_period,	spawn,		SHCMD("mpc next") }, */
@@ -222,7 +232,7 @@ static Key keys[] = {
 
 	/* { MODKEY,			XK_F1,		spawn,		SHCMD("groff -mom /usr/local/share/dwm/larbs.mom -Tpdf | zathura -") }, */
 	{ MODKEY,			XK_F2,		spawn,		SHCMD("killall -q dwmblocks; setsid dwmblocks &") },
-	{ MODKEY,			XK_F3,		spawn,		SHCMD("output-video") },
+	{ MODKEY,			XK_F3,		spawn,		SHCMD("output-video Desktop") },
 	{ MODKEY|ShiftMask,		XK_F3,		spawn,		SHCMD("displayselect") },
 	/* { MODKEY,			XK_F4,		spawn,		SHCMD("timeOnPc suspend") }, */
 	/* { MODKEY|ShiftMask,		XK_F4,		spawn,		SHCMD("timeOnPc hibernate") }, */
@@ -242,6 +252,7 @@ static Key keys[] = {
 	{ ShiftMask,			XK_Print,	spawn,		SHCMD("maimpick") },
 	/* { MODKEY,			XK_Print,	spawn,		SHCMD("dmenurecord") }, */
 	/* { MODKEY|ShiftMask,		XK_Print,	spawn,		SHCMD("dmenurecord kill") }, */
+	{ MODKEY,			XK_Delete,	togglescratch,	{.ui = 7} },
 	/* { MODKEY,			XK_Delete,	spawn,		SHCMD("dmenurecord kill") }, */
 	/* { MODKEY,			XK_Scroll_Lock,	spawn,		SHCMD("killall screenkey || screenkey &") }, */
 
@@ -266,14 +277,14 @@ static Key keys[] = {
 	/* { 0, XF86XK_DOS,		spawn,		SHCMD("st") }, */
 	/* { 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") }, */
 	/* { 0, XF86XK_TaskPane,		spawn,		SHCMD("st -e htop") }, */
-	{ 0, XF86XK_Mail,		spawn,		SHCMD("st -e vim ~/vimwiki/Scratch.md") },
+	{ 0, XF86XK_Mail,		spawn,		SHCMD("st -e vim ~/Journal/Scratch.md") },
 	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 6} }, */
 	/* { 0, XF86XK_MyComputer,		spawn,		SHCMD("st -e lf /") }, */
 	/* { 0, XF86XK_Battery,		spawn,		SHCMD("") }, */
 	{ 0, XF86XK_HomePage,		spawn,		SHCMD("$BROWSER") },
-	{ MODKEY, XF86XK_HomePage,	spawn,		SHCMD("chromium --incognito") },
+	{ MODKEY, XF86XK_HomePage,	spawn,		SHCMD("$BROWSER --incognito") },
 	{ 0, XF86XK_Search,		togglescratch,	{.ui = 5 } },
-	{ MODKEY, XF86XK_Search,	spawn,		SHCMD("st -e lf") },
+	{ MODKEY, XF86XK_Search,	togglescratch,	{.ui = 8 } },
 	{ 0, XF86XK_Favorites,		togglescratch,	{.ui = 0 } },
 	{ 0, XF86XK_Launch5,		spawn,		SHCMD("winmpv") },
 	/* { ControlMask, XF86XK_Launch5,	spawn,		SHCMD("winmpv queueclip") }, */
