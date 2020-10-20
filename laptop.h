@@ -30,13 +30,12 @@ typedef struct {
 	const void *cmd;
 } Sp;
 
-const char *spcmd0[] = {"st", "-n", "spterm", "-g", "120x40", NULL };
+const char *spcmd0[] = {"st", "-n", "spterm", "-g", "120x40", "-e", "tmux", NULL };
 const char *spcmd1[] = {"st", "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
 const char *spcmd2[] = {"st", "-n", "spaudio", "-g", "120x20", "-e", "pulsemixer", NULL };
 const char *spcmd3[] = {"st", "-n", "spncmpcpp", "-g", "120x35", "-e", "ncmpcpp", NULL };
-/* const char *spcmd4[] = {"st", "-n", "spspotify", "-g", "120x50", "-e", "spotify", NULL }; */
 const char *spcmd4[] = {"st", "-n", "spspotify", "-g", "140x35", "-e", "startspotify", NULL };
-const char *spcmd5[] = {"st", "-n", "splf", "-g", "120x30", "-e", "lf", NULL };
+const char *spcmd5[] = {"st", "-n", "spranger", "-g", "120x30", "-e", "ranger", NULL };
 const char *spcmd6[] = {"st", "-n", "spnews", "-g", "120x45", "-e", "newsboat", NULL };
 const char *spcmd7[] = {"st", "-n", "spgotop", "-g", "130x40", "-e", "gotop", NULL };
 const char *spcmd8[] = {"st", "-n", "spvcs", "-g", "130x40", "-e", "vim", "$HOME/Documents/Documentations/Vim/VimCheatSheet.md", NULL };
@@ -48,7 +47,7 @@ static Sp scratchpads[] = {
 	{"spaudio",	spcmd2},
 	{"spncmpcpp",	spcmd3},
 	{"spspotify",	spcmd4},
-	{"splf",	spcmd5},
+	{"spranger",	spcmd5},
 	{"spnews",	spcmd6},
 	{"spgotop",	spcmd7},
 	{"spvcs",	spcmd8},
@@ -72,7 +71,7 @@ static const Rule rules[] = {
 	{ NULL,      "spaudio",   NULL,       SPTAG(2),     1,           1,         0,        -1 },
 	{ NULL,      "spncmpcpp", NULL,       SPTAG(3),     1,           1,         0,        -1 },
 	{ NULL,      "spspotify",  NULL,      SPTAG(4),     1,           1,         0,        -1 },
-	{ NULL,      "splf",      NULL,       SPTAG(5),     1,           1,         0,        -1 },
+	{ NULL,      "spranger",      NULL,       SPTAG(5),     1,           1,         0,        -1 },
 	{ NULL,      "spnews",    NULL,       SPTAG(6),     1,           1,         0,        -1 },
 	{ NULL,      "spgotop",   NULL,       SPTAG(7),     1,           1,         0,        -1 },
 	{ NULL,      "spvcs",     NULL,       SPTAG(8),     1,           1,         0,        -1 },
@@ -124,7 +123,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 
 #include <X11/XF86keysym.h>
 #include "shiftview.c"
@@ -235,7 +234,7 @@ static Key keys[] = {
 
 	/* { MODKEY,			XK_F1,		spawn,		SHCMD("groff -mom /usr/local/share/dwm/larbs.mom -Tpdf | zathura -") }, */
 	{ MODKEY,			XK_F2,		spawn,		SHCMD("killall -q dwmblocks; setsid dwmblocks &") },
-	{ MODKEY,			XK_F3,		spawn,		SHCMD("t-wifi wifi") },
+	{ MODKEY,			XK_F3,		spawn,		SHCMD("t-wifi") },
 	/* { 0,				XF86XK_WWAN,	spawn,		SHCMD("t-wifi wifi") }, */
 	{ MODKEY|ShiftMask,		XK_F3,		spawn,		SHCMD("t-bluetooth") },
 	/* { MODKEY,			XF86XK_WWAN,	spawn,		SHCMD("t-bluetooth") }, */
