@@ -29,34 +29,32 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd0[] = {"st", "-n", "spterm", "-g", "120x40", NULL };
+const char *spcmd0[] = {"st", "-n", "spterm", "-g", "120x40", "-e", "tmux", NULL };
 const char *spcmd1[] = {"st", "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
 const char *spcmd2[] = {"st", "-n", "spaudio", "-g", "120x20", "-e", "pulsemixer", NULL };
 const char *spcmd3[] = {"st", "-n", "spncmpcpp", "-g", "120x35", "-e", "ncmpcpp", NULL };
-const char *spcmd4[] = {"st", "-n", "spspotify", "-g", "140x35", "-e", "startspotify", NULL };
-const char *spcmd5[] = {"st", "-n", "splf", "-g", "120x30", "-e", "lf", NULL };
+const char *spcmd4[] = {"st", "-n", "spspotify-tui", "-g", "140x35", "-e", "startspotify", NULL };
+const char *spcmd5[] = {"st", "-n", "spranger", "-g", "120x30", "-e", "ranger", NULL };
 const char *spcmd6[] = {"st", "-n", "spnews", "-g", "120x45", "-e", "newsboat", NULL };
 const char *spcmd7[] = {"st", "-n", "spgotop", "-g", "130x40", "-e", "gotop", NULL };
-const char *spcmd8[] = {"st", "-n", "spranger", "-g", "120x30", "-e", "ranger", NULL };
-/* const char *spcmd6[] = {"st", "-n", "spscratch", "-g", "125x40", "-e", "vim ~/.config/void/vimwiki/Scratch.md", NULL }; */
+const char *spcmd8[] = {"st", "-n", "splf", "-g", "120x30", "-e", "lf", NULL };
+
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",	spcmd0},
 	{"spcalc",	spcmd1},
 	{"spaudio",	spcmd2},
 	{"spncmpcpp",	spcmd3},
-	{"spspotify",	spcmd4},
-	{"splf",	spcmd5},
+	{"spspotify-tui",	spcmd4},
+	{"spranger",	spcmd5},
 	{"spnews",	spcmd6},
 	{"spgotop",	spcmd7},
-	{"spranger",	spcmd8},
-	/* {"spscratch",	spcmd6}, */
+	{"splf",	spcmd8},
 };
 
 /* tagging */
 /* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
-static const char *tags[] = { "1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 " }; //ﭬ
-/* static const char *tags[] = { "  ", " ", " ﭬ", " ", " ", " ", " ", " ", " " }; */
+static const char *tags[] = { "1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 " };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -71,12 +69,11 @@ static const Rule rules[] = {
 	{ NULL,      "spcalc",    NULL,       SPTAG(1),     1,           1,         0,        -1 },
 	{ NULL,      "spaudio",   NULL,       SPTAG(2),     1,           1,         0,        -1 },
 	{ NULL,      "spncmpcpp", NULL,       SPTAG(3),     1,           1,         0,        -1 },
-	{ NULL,      "spspotify", NULL,       SPTAG(4),     1,           1,         0,        -1 },
-	{ NULL,      "splf",      NULL,       SPTAG(5),     1,           1,         0,        -1 },
+	{ NULL,      "spspotify-tui", NULL,       SPTAG(4),     1,           1,         0,        -1 },
+	{ NULL,      "spranger",  NULL,       SPTAG(5),     1,           1,         0,        -1 },
 	{ NULL,      "spnews",    NULL,       SPTAG(6),     1,           1,         0,        -1 },
 	{ NULL,      "spgotop",   NULL,       SPTAG(7),     1,           1,         0,        -1 },
-	{ NULL,      "spranger",  NULL,       SPTAG(8),     1,           1,         0,        -1 },
-	/* { NULL,      "spscratch", NULL,       SPTAG(6),     1,           1,         0,        -1 }, */
+	{ NULL,      "splf",      NULL,       SPTAG(8),     1,           1,         0,        -1 },
 };
 
 /* layout(s) */
@@ -125,7 +122,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 
 #include <X11/XF86keysym.h>
 #include "shiftview.c"
@@ -244,7 +241,9 @@ static Key keys[] = {
 	{ MODKEY,			XK_F9,		spawn,		SHCMD("dmenumount") },
 	{ MODKEY,			XK_F10,		spawn,		SHCMD("dmenuumount") },
 	/* { MODKEY,			XK_F11,		spawn,		SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") }, */
-	{ MODKEY,			XK_F12,		xrdb,		{.v = NULL } },
+	{ 0,				XK_F12,		spawn,		SHCMD("maimpick") },
+	{ MODKEY,			XK_F12,		spawn,		SHCMD("maim F$(date '+%y%m%d-%H%M-%S').png") },
+	{ ShiftMask,			XK_F12,		xrdb,		{.v = NULL } },
 	{ MODKEY,			XK_space,	zoom,		{0} },
 	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{0} },
 
@@ -264,6 +263,7 @@ static Key keys[] = {
 	/* { 0, XF86XK_AudioPrev,		spawn,		SHCMD("dmpc prev") }, */
 	/* { 0, XF86XK_AudioNext,		spawn,		SHCMD("dmpc next") }, */
 	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("dmpc toggle") },
+	{ MODKEY, XF86XK_AudioPlay,	spawn,		SHCMD("tppctl") },
 	/* { 0, XF86XK_AudioStop,		spawn,		SHCMD("mpc stop") }, */
 	/* { 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10") }, */
 	/* { 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10") }, */
@@ -271,13 +271,12 @@ static Key keys[] = {
 	/* { 0, XF86XK_PowerOff,		spawn,		SHCMD("sysact") }, */
 	/* { 0, XF86XK_Calculator,		spawn,		SHCMD("st -e bc -l") }, */
 	{ 0, XF86XK_Calculator,		togglescratch,	{.ui = 1} },
-	{ MODKEY, XF86XK_Calculator,	spawn,		SHCMD("pauseallmpv") },
 	/* { 0, XF86XK_Sleep,		spawn,		SHCMD("sudo -A zzz") }, */
 	/* { 0, XF86XK_WWW,		spawn,		SHCMD("$BROWSER") }, */
 	/* { 0, XF86XK_DOS,		spawn,		SHCMD("st") }, */
 	/* { 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") }, */
 	/* { 0, XF86XK_TaskPane,		spawn,		SHCMD("st -e htop") }, */
-	{ 0, XF86XK_Mail,		spawn,		SHCMD("st -e vim ~/Journal/Scratch.md") },
+	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 9 } }, */
 	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 6} }, */
 	/* { 0, XF86XK_MyComputer,		spawn,		SHCMD("st -e lf /") }, */
 	/* { 0, XF86XK_Battery,		spawn,		SHCMD("") }, */
@@ -286,6 +285,7 @@ static Key keys[] = {
 	{ 0, XF86XK_Search,		togglescratch,	{.ui = 5 } },
 	{ MODKEY, XF86XK_Search,	togglescratch,	{.ui = 8 } },
 	{ 0, XF86XK_Favorites,		togglescratch,	{.ui = 0 } },
+	/* { MODKEY, XF86XK_Favorites,	togglescratch,	{.ui = 9 } }, */
 	{ 0, XF86XK_Launch5,		spawn,		SHCMD("winmpv") },
 	/* { ControlMask, XF86XK_Launch5,	spawn,		SHCMD("winmpv queueclip") }, */
 	/* { ShiftMask,XF86XK_Launch5,	spawn,		SHCMD("winmpv playclip") }, */
@@ -295,8 +295,10 @@ static Key keys[] = {
 	/* { 0, XF86XK_Launch7,		spawn,		SHCMD("st -e pulsemixer; kill -44 $(pidof dwmblocks)") }, */
 	{ 0, XF86XK_Launch7,		togglescratch,	{.ui = 2 } },
 	{ 0, XF86XK_Launch8,		spawn,		SHCMD("dmpc prev") },
+	{ MODKEY, XF86XK_Launch8,	spawn,		SHCMD("dmpc seekp") },
 	{ 0, XF86XK_Launch9,		spawn,		SHCMD("dmpc next") },
-	{ MODKEY, XF86XK_Launch9,	spawn,		SHCMD("input-volume") },
+	{ MODKEY, XF86XK_Launch9,	spawn,		SHCMD("dmpc seekf") },
+	/* { MODKEY, XF86XK_Launch9,	spawn,		SHCMD("input-volume") }, */
 	{ 0, XF86XK_Back,		shiftview,	{ .i = -1 } },
 	{ 0, XF86XK_Forward,		shiftview,	{ .i = 1 } },
 	/* { 0, XF86XK_TouchpadToggle,	spawn,		SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") }, */
