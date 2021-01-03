@@ -182,7 +182,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_s,		togglesticky,	{0} },
 	/* { MODKEY|ShiftMask,		XK_s,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_d,		spawn,          {.v = dmenucmd } },
-	/* { MODKEY,			XK_d,		spawn,		SHCMD("") } }, */
+	{ MODKEY|ShiftMask,		XK_d,		spawn,		SHCMD("via") },
 	{ MODKEY,			XK_f,		togglefullscr,	{0} },
 	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[8]} },
 	{ MODKEY,			XK_g,		shiftview,	{ .i = -1 } },
@@ -290,8 +290,8 @@ static Key keys[] = {
 	/* { ControlMask, XF86XK_Launch5,	spawn,		SHCMD("winmpv queueclip") }, */
 	/* { ShiftMask,XF86XK_Launch5,	spawn,		SHCMD("winmpv playclip") }, */
 	/* { 0, XF86XK_Launch6,		spawn,		SHCMD("st -e ncmpcpp; pkill -RTMIN+11 dwmblocks") }, */
-	{ 0, XF86XK_Launch6,		togglescratch,	{.ui = 4 } },
-	{ MODKEY, XF86XK_Launch6,	togglescratch,	{.ui = 3 } },
+	{ 0, XF86XK_Launch6,		togglescratch,	{.ui = 3 } },
+	{ MODKEY, XF86XK_Launch6,	togglescratch,	{.ui = 4 } },
 	/* { 0, XF86XK_Launch7,		spawn,		SHCMD("st -e pulsemixer; kill -44 $(pidof dwmblocks)") }, */
 	{ 0, XF86XK_Launch7,		togglescratch,	{.ui = 2 } },
 	{ 0, XF86XK_Launch8,		spawn,		SHCMD("dmpc prev") },
