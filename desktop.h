@@ -1,5 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 
+/* Constants */
+#define TERMINAL "alacritty"
+#define TERMCLASS "Alacritty"
+
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -63,7 +67,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   isterminal noswallow monitor */
 	{ "Gimp",     NULL,       NULL,       1 << 8,       0,           0,         0,        -1 },
-	{ "St",       NULL,       NULL,       0,            0,           1,         0,        -1 },
+	{ TERMCLASS,  NULL,       NULL,       0,            0,           1,         0,        -1 },
 	{ NULL,       NULL,       "Event Tester", 0,        0,           0,         1,        -1 },
 	{ NULL,      "spterm",    NULL,       SPTAG(0),     1,           1,         0,        -1 },
 	{ NULL,      "spcalc",    NULL,       SPTAG(1),     1,           1,         0,        -1 },
@@ -122,7 +126,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
+static const char *termcmd[]  = { TERMINAL, "-e", "tmux", NULL };
 
 #include <X11/XF86keysym.h>
 #include "shiftview.c"
@@ -153,11 +157,11 @@ static Key keys[] = {
 	{ MODKEY,			XK_q,		killclient,	{0} },
 	/* { MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("sysact") }, */
 	{ MODKEY,			XK_w,		spawn,		SHCMD("qutebrowser") },
-	/* { MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("st -e sudo nmtui") }, */
-	/* { MODKEY,			XK_e,		spawn,		SHCMD("st -e neomutt ; pkill -RTMIN+12 dwmblocks; rmdir ~/.abook") }, */
-	/* { MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("st -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") }, */
-	/* { MODKEY,			XK_r,		spawn,		SHCMD("st -e lf") }, */
-	/* { MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("st -e htop") }, */
+	/* { MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("TERMINAL -e sudo nmtui") }, */
+	/* { MODKEY,			XK_e,		spawn,		SHCMD("TERMINAL -e neomutt ; pkill -RTMIN+12 dwmblocks; rmdir ~/.abook") }, */
+	/* { MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD("TERMINAL -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") }, */
+	/* { MODKEY,			XK_r,		spawn,		SHCMD("TERMINAL -e lf") }, */
+	/* { MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("TERMINAL -e htop") }, */
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,		XK_t,		setlayout,	{.v = &layouts[1]} },
 	{ MODKEY,			XK_y,		setlayout,	{.v = &layouts[2]} },
@@ -207,9 +211,9 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_v,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_b,		togglebar,	{0} },
 	/* { MODKEY|ShiftMask,		XK_b,		spawn,		SHCMD("") }, */
-	{ MODKEY,			XK_n,		spawn,		SHCMD("st -e nvim -c VimwikiIndex") },
+	{ MODKEY,			XK_n,		spawn,		SHCMD("TERMINAL -e nvim -c VimwikiIndex") },
 	{ MODKEY|ShiftMask,		XK_n,		togglescratch,	{.ui = 6} },
-	/* { MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("st -e newsboat; pkill -RTMIN+6 dwmblocks") }, */
+	/* { MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD("TERMINAL -e newsboat; pkill -RTMIN+6 dwmblocks") }, */
 	{ MODKEY,			XK_m,		togglescratch,	{.ui = 3 } },
 	/* { MODKEY,			XK_comma,	spawn,		SHCMD("mpc prev") }, */
 	/* { MODKEY|ShiftMask,		XK_comma,	spawn,		SHCMD("mpc seek 0%") }, */
@@ -267,18 +271,18 @@ static Key keys[] = {
 	/* { 0, XF86XK_AudioStop,		spawn,		SHCMD("mpc stop") }, */
 	/* { 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10") }, */
 	/* { 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10") }, */
-	/* { 0, XF86XK_AudioMedia,		spawn,		SHCMD("st -e ncmpcpp") }, */
+	/* { 0, XF86XK_AudioMedia,		spawn,		SHCMD("TERMINAL -e ncmpcpp") }, */
 	/* { 0, XF86XK_PowerOff,		spawn,		SHCMD("sysact") }, */
-	/* { 0, XF86XK_Calculator,		spawn,		SHCMD("st -e bc -l") }, */
+	/* { 0, XF86XK_Calculator,		spawn,		SHCMD("TERMINAL -e bc -l") }, */
 	{ 0, XF86XK_Calculator,		togglescratch,	{.ui = 1} },
 	/* { 0, XF86XK_Sleep,		spawn,		SHCMD("sudo -A zzz") }, */
 	/* { 0, XF86XK_WWW,		spawn,		SHCMD("$BROWSER") }, */
-	/* { 0, XF86XK_DOS,		spawn,		SHCMD("st") }, */
+	/* { 0, XF86XK_DOS,		spawn,		SHCMD(TERMINAL) }, */
 	/* { 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") }, */
-	/* { 0, XF86XK_TaskPane,		spawn,		SHCMD("st -e htop") }, */
+	/* { 0, XF86XK_TaskPane,		spawn,		SHCMD("TERMINAL -e htop") }, */
 	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 9 } }, */
 	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 6} }, */
-	/* { 0, XF86XK_MyComputer,		spawn,		SHCMD("st -e lf /") }, */
+	/* { 0, XF86XK_MyComputer,		spawn,		SHCMD("TERMINAL -e lf /") }, */
 	/* { 0, XF86XK_Battery,		spawn,		SHCMD("") }, */
 	{ 0, XF86XK_HomePage,		spawn,		SHCMD("$BROWSER") },
 	{ MODKEY, XF86XK_HomePage,	spawn,		SHCMD("$BROWSER --incognito") },
@@ -289,10 +293,10 @@ static Key keys[] = {
 	{ 0, XF86XK_Launch5,		spawn,		SHCMD("winmpv") },
 	/* { ControlMask, XF86XK_Launch5,	spawn,		SHCMD("winmpv queueclip") }, */
 	/* { ShiftMask,XF86XK_Launch5,	spawn,		SHCMD("winmpv playclip") }, */
-	/* { 0, XF86XK_Launch6,		spawn,		SHCMD("st -e ncmpcpp; pkill -RTMIN+11 dwmblocks") }, */
+	/* { 0, XF86XK_Launch6,		spawn,		SHCMD("TERMINAL -e ncmpcpp; pkill -RTMIN+11 dwmblocks") }, */
 	{ 0, XF86XK_Launch6,		togglescratch,	{.ui = 3 } },
 	{ MODKEY, XF86XK_Launch6,	togglescratch,	{.ui = 4 } },
-	/* { 0, XF86XK_Launch7,		spawn,		SHCMD("st -e pulsemixer; kill -44 $(pidof dwmblocks)") }, */
+	/* { 0, XF86XK_Launch7,		spawn,		SHCMD("TERMINAL -e pulsemixer; kill -44 $(pidof dwmblocks)") }, */
 	{ 0, XF86XK_Launch7,		togglescratch,	{.ui = 2 } },
 	{ 0, XF86XK_Launch8,		spawn,		SHCMD("dmpc prev") },
 	{ MODKEY, XF86XK_Launch8,	spawn,		SHCMD("dmpc seekp") },
@@ -336,7 +340,7 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button4,        sigdwmblocks,   {.i = 4} },
 	{ ClkStatusText,        0,              Button5,        sigdwmblocks,   {.i = 5} },
 	{ ClkStatusText,        ShiftMask,      Button1,        sigdwmblocks,   {.i = 6} },
-	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD("st -e nvim ~/.config/dwmblocks/config.h") },
+	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD("TERMINAL -e nvim ~/.config/dwmblocks/config.h") },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        defaultgaps,	{0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
