@@ -11,8 +11,8 @@ static const unsigned int gappih    = 20;       /* horiz inner gap between windo
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
 static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
-static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
-static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
+static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
+static const int smartgaps          = 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Iosevka:size=12", "Inconsolata:pixelsize=12:antialias=true:autohint=true"  };
@@ -267,7 +267,7 @@ static Key keys[] = {
 	/* { 0, XF86XK_AudioPrev,		spawn,		SHCMD("dmpc prev") }, */
 	/* { 0, XF86XK_AudioNext,		spawn,		SHCMD("dmpc next") }, */
 	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("dmpc toggle") },
-	{ MODKEY, XF86XK_AudioPlay,	spawn,		SHCMD("tppctl") },
+	{ MODKEY, XF86XK_AudioPlay,	spawn,		SHCMD("tppctl play-pause") },
 	/* { 0, XF86XK_AudioStop,		spawn,		SHCMD("mpc stop") }, */
 	/* { 0, XF86XK_AudioRewind,	spawn,		SHCMD("mpc seek -10") }, */
 	/* { 0, XF86XK_AudioForward,	spawn,		SHCMD("mpc seek +10") }, */
@@ -280,7 +280,7 @@ static Key keys[] = {
 	/* { 0, XF86XK_DOS,		spawn,		SHCMD(TERMINAL) }, */
 	/* { 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") }, */
 	/* { 0, XF86XK_TaskPane,		spawn,		SHCMD("TERMINAL -e htop") }, */
-	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 9 } }, */
+	{ 0, XF86XK_Mail,		spawn,		SHCMD("tppctl play-pause && dmpc toggle")},
 	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 6} }, */
 	/* { 0, XF86XK_MyComputer,		spawn,		SHCMD("TERMINAL -e lf /") }, */
 	/* { 0, XF86XK_Battery,		spawn,		SHCMD("") }, */
@@ -299,9 +299,9 @@ static Key keys[] = {
 	/* { 0, XF86XK_Launch7,		spawn,		SHCMD("TERMINAL -e pulsemixer; kill -44 $(pidof dwmblocks)") }, */
 	{ 0, XF86XK_Launch7,		togglescratch,	{.ui = 2 } },
 	{ 0, XF86XK_Launch8,		spawn,		SHCMD("dmpc prev") },
-	{ MODKEY, XF86XK_Launch8,	spawn,		SHCMD("dmpc seekp") },
+	{ MODKEY, XF86XK_Launch8,	spawn,		SHCMD("tppctl position 10-") },
 	{ 0, XF86XK_Launch9,		spawn,		SHCMD("dmpc next") },
-	{ MODKEY, XF86XK_Launch9,	spawn,		SHCMD("dmpc seekf") },
+	{ MODKEY, XF86XK_Launch9,	spawn,		SHCMD("tppctl position 10+") },
 	/* { MODKEY, XF86XK_Launch9,	spawn,		SHCMD("input-volume") }, */
 	{ 0, XF86XK_Back,		shiftview,	{ .i = -1 } },
 	{ 0, XF86XK_Forward,		shiftview,	{ .i = 1 } },
