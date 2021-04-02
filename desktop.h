@@ -7,7 +7,7 @@
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 10;       /* snap pixel */
-static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
+static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
 static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
@@ -33,27 +33,27 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd0[] = {"st", "-n", "spterm", "-g", "120x40", "-e", "tmux", "new-session", "-s", "dropdown", NULL };
-const char *spcmd1[] = {"st", "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
-const char *spcmd2[] = {"st", "-n", "spaudio", "-g", "120x20", "-e", "pulsemixer", NULL };
-const char *spcmd3[] = {"st", "-n", "spncmpcpp", "-g", "120x35", "-e", "ncmpcpp", NULL };
-const char *spcmd4[] = {"st", "-n", "spspotify-tui", "-g", "140x35", "-e", "startspotify", NULL };
-const char *spcmd5[] = {"st", "-n", "spranger", "-g", "120x30", "-e", "tmux", "new-session", "-s", "ranger", "ranger", NULL };
-const char *spcmd6[] = {"st", "-n", "spnews", "-g", "120x45", "-e", "newsboat", NULL };
-const char *spcmd7[] = {"st", "-n", "spgotop", "-g", "130x40", "-e", "gotop", NULL };
-const char *spcmd8[] = {"st", "-n", "splf", "-g", "120x30", "-e", "lf", "tmux", "new-session", "-s", "lf", "lf", NULL };
+const char *spcmd0[] = {"st", "-n", "sp-term", "-g", "120x40", "-e", "tmux", "new-session", "-s", "dropdown", NULL };
+const char *spcmd1[] = {"st", "-n", "sp-calc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
+const char *spcmd2[] = {"st", "-n", "sp-audio", "-g", "120x20", "-e", "pulsemixer", NULL };
+const char *spcmd3[] = {"st", "-n", "sp-ncmpcpp", "-g", "120x35", "-e", "ncmpcpp", NULL };
+const char *spcmd4[] = {"st", "-n", "sp-spotify", "-g", "140x35", "-e", "startspotify", NULL };
+const char *spcmd5[] = {"st", "-n", "sp-org", "-g", "150x50", "-e", "emacs", "~/.local/src/Org/tasks.org", NULL };
+const char *spcmd6[] = {"st", "-n", "sp-news", "-g", "120x45", "-e", "newsboat", NULL };
+const char *spcmd7[] = {"st", "-n", "sp-gotop", "-g", "130x40", "-e", "gotop", NULL };
+const char *spcmd8[] = {"st", "-n", "sp-lf", "-g", "120x30", "-e", "tmux", "new-session", "-s", "lf", "lf", NULL };
 
 static Sp scratchpads[] = {
 	/* name          cmd  */
-	{"spterm",		spcmd0},
-	{"spcalc",		spcmd1},
-	{"spaudio",		spcmd2},
-	{"spncmpcpp",		spcmd3},
-	{"spspotify-tui",	spcmd4},
-	{"spranger",		spcmd5},
-	{"spnews",		spcmd6},
-	{"spgotop",		spcmd7},
-	{"splf",		spcmd8},
+	{"sp-term",			spcmd0},
+	{"sp-calc",			spcmd1},
+	{"sp-audio",			spcmd2},
+	{"sp-ncmpcpp",			spcmd3},
+	{"sp-spotify",			spcmd4},
+	{"sp-org",	 		spcmd5},
+	{"sp-news",			spcmd6},
+	{"sp-gotop",			spcmd7},
+	{"sp-lf",			spcmd8},
 };
 
 /* tagging */
@@ -69,15 +69,15 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,            NULL,            1 << 8,       0,           0,         0,        -1 },
 	{ TERMCLASS,  NULL,            NULL,            0,            0,           1,         0,        -1 },
 	{ NULL,       NULL,            "Event Tester",  0,            0,           0,         1,        -1 },
-	{ NULL,      "spterm",         NULL,            SPTAG(0),     1,           1,         0,        -1 },
-	{ NULL,      "spcalc",         NULL,            SPTAG(1),     1,           1,         0,        -1 },
-	{ NULL,      "spaudio",        NULL,            SPTAG(2),     1,           1,         0,        -1 },
-	{ NULL,      "spncmpcpp",      NULL,            SPTAG(3),     1,           1,         0,        -1 },
-	{ NULL,      "spspotify-tui",  NULL,            SPTAG(4),     1,           1,         0,        -1 },
-	{ NULL,      "spranger",       NULL,            SPTAG(5),     1,           1,         0,        -1 },
-	{ NULL,      "spnews",         NULL,            SPTAG(6),     1,           1,         0,        -1 },
-	{ NULL,      "spgotop",        NULL,            SPTAG(7),     1,           1,         0,        -1 },
-	{ NULL,      "splf",           NULL,            SPTAG(8),     1,           1,         0,        -1 },
+	{ NULL,      "sp-term",        NULL,            SPTAG(0),     1,           1,         0,        -1 },
+	{ NULL,      "sp-calc",        NULL,            SPTAG(1),     1,           1,         0,        -1 },
+	{ NULL,      "sp-audio",       NULL,            SPTAG(2),     1,           1,         0,        -1 },
+	{ NULL,      "sp-ncmpcpp",     NULL,            SPTAG(3),     1,           1,         0,        -1 },
+	{ NULL,      "sp-spotify",     NULL,            SPTAG(4),     1,           1,         0,        -1 },
+	{ NULL,      "sp-org",         NULL,            SPTAG(5),     1,           1,         0,        -1 },
+	{ NULL,      "sp-news",        NULL,            SPTAG(6),     1,           1,         0,        -1 },
+	{ NULL,      "sp-gotop",       NULL,            SPTAG(7),     1,           1,         0,        -1 },
+	{ NULL,      "sp-lf",          NULL,            SPTAG(8),     1,           1,         0,        -1 },
 };
 
 /* layout(s) */
@@ -156,7 +156,7 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_Tab,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_q,		killclient,	{0} },
 	/* { MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("sysact") }, */
-	{ MODKEY,			XK_w,		spawn,		SHCMD("qutebrowser") },
+	/* { MODKEY,			XK_w,		spawn,		SHCMD("qutebrowser") }, */
 	/* { MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD(TERMINAL" -e sudo nmtui") }, */
 	/* { MODKEY,			XK_e,		spawn,		SHCMD(TERMINAL" -e neomutt ; pkill -RTMIN+12 dwmblocks; rmdir ~/.abook") }, */
 	/* { MODKEY|ShiftMask,		XK_e,		spawn,		SHCMD(TERMINAL" -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") }, */
@@ -216,9 +216,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_n,		togglescratch,	{.ui = 6} },
 	/* { MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD(TERMINAL" -e newsboat; pkill -RTMIN+6 dwmblocks") }, */
 	{ MODKEY,			XK_m,		togglescratch,	{.ui = 3 } },
-	/* { MODKEY,			XK_comma,	spawn,		SHCMD("mpc prev") }, */
+	{ MODKEY,			XK_comma,	spawn,		SHCMD("dmpc toggle") },
 	/* { MODKEY|ShiftMask,		XK_comma,	spawn,		SHCMD("mpc seek 0%") }, */
-	/* { MODKEY,			XK_period,	spawn,		SHCMD("mpc next") }, */
+	{ MODKEY,			XK_period,	spawn,		SHCMD("tppctl play-pause") },
 	/* { MODKEY|ShiftMask,		XK_period,	spawn,		SHCMD("mpc repeat") }, */
 
 	{ MODKEY,			XK_Left,	focusmon,	{.i = -1 } },
@@ -246,8 +246,8 @@ static Key keys[] = {
 	{ MODKEY,			XK_F9,		spawn,		SHCMD("dmenumount") },
 	{ MODKEY,			XK_F10,		spawn,		SHCMD("dmenuumount") },
 	/* { MODKEY,			XK_F11,		spawn,		SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") }, */
-	{ 0,				XK_F12,		spawn,		SHCMD("maimpick") },
-	{ MODKEY,			XK_F12,		spawn,		SHCMD("maim F$(date '+%y%m%d-%H%M-%S').png") },
+	{ MODKEY,				XK_F12,		spawn,		SHCMD("maimpick") },
+	/* { MODKEY,			XK_F12,		spawn,		SHCMD("maim F$(date '+%y%m%d-%H%M-%S').png") }, */
 	{ ShiftMask,			XK_F12,		xrdb,		{.v = NULL } },
 	{ MODKEY,			XK_space,	zoom,		{0} },
 	{ MODKEY|ShiftMask,		XK_space,	togglefloating,	{0} },
@@ -281,14 +281,16 @@ static Key keys[] = {
 	/* { 0, XF86XK_DOS,		spawn,		SHCMD(TERMINAL) }, */
 	/* { 0, XF86XK_ScreenSaver,	spawn,		SHCMD("slock & xset dpms force off; mpc pause; pauseallmpv") }, */
 	/* { 0, XF86XK_TaskPane,		spawn,		SHCMD(TERMINAL" -e htop") }, */
-	{ 0, XF86XK_Mail,		spawn,		SHCMD("tppctl play-pause && dmpc toggle")},
+	{ 0, XF86XK_Mail,		togglescratch,	{.ui = 5} },
+	{ MODKEY, XF86XK_Mail,		spawn,		SHCMD("emacs")},
 	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 6} }, */
 	/* { 0, XF86XK_MyComputer,		spawn,		SHCMD(TERMINAL" -e lf /") }, */
 	/* { 0, XF86XK_Battery,		spawn,		SHCMD("") }, */
 	{ 0, XF86XK_HomePage,		spawn,		SHCMD("$BROWSER") },
-	{ MODKEY, XF86XK_HomePage,	spawn,		SHCMD("$BROWSER --incognito") },
-	{ 0, XF86XK_Search,		togglescratch,	{.ui = 5 } },
-	{ MODKEY, XF86XK_Search,	togglescratch,	{.ui = 8 } },
+	{ MODKEY, XF86XK_HomePage,	spawn,		SHCMD("$BROWSER -private-window") },
+	{ MODKEY|ShiftMask, XF86XK_HomePage,	spawn,		SHCMD("$BROWSER -private-window") },
+	{ 0, XF86XK_Search,		togglescratch,	{.ui = 8 } },
+	/* { MODKEY, XF86XK_Search,	togglescratch,	{.ui = 5 } }, */
 	{ 0, XF86XK_Favorites,		togglescratch,	{.ui = 0 } },
 	/* { MODKEY, XF86XK_Favorites,	togglescratch,	{.ui = 9 } }, */
 	{ 0, XF86XK_Launch5,		spawn,		SHCMD("dmpv") },
@@ -342,7 +344,7 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button4,        sigdwmblocks,   {.i = 4} },
 	{ ClkStatusText,        0,              Button5,        sigdwmblocks,   {.i = 5} },
 	{ ClkStatusText,        ShiftMask,      Button1,        sigdwmblocks,   {.i = 6} },
-	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD(TERMINAL" -e nvim ~/.config/dwmblocks/config.h") },
+	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD(TERMINAL "-e nvim ~/.config/dwmblocks/config.h") },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        defaultgaps,	{0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
@@ -356,3 +358,4 @@ static Button buttons[] = {
 	{ ClkTagBar,		0,		Button5,	shiftview,	{.i = 1} },
 	{ ClkRootWin,		0,		Button2,	togglebar,	{0} },
 };
+
