@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Constants */
-#define TERMINAL "st"
-#define TERMCLASS "St"
+#define TERMINAL "alacritty"
+#define TERMCLASS "Alacritty"
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -33,27 +33,27 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd0[] = {"st", "-n", "sp-term", "-g", "120x40", "-e", "tmux", "new-session", "-s", "dropdown", NULL };
-const char *spcmd1[] = {"st", "-n", "sp-calc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
-const char *spcmd2[] = {"st", "-n", "sp-audio", "-g", "120x20", "-e", "pulsemixer", NULL };
-const char *spcmd3[] = {"st", "-n", "sp-ncmpcpp", "-g", "120x35", "-e", "ncmpcpp", NULL };
-const char *spcmd4[] = {"st", "-n", "sp-spotify", "-g", "140x35", "-e", "startspotify", NULL };
-const char *spcmd5[] = {"st", "-n", "sp-org", "-g", "150x50", "-e", "emacs", "~/.local/src/Org/tasks.org", NULL };
-const char *spcmd6[] = {"st", "-n", "sp-news", "-g", "120x45", "-e", "newsboat", NULL };
-const char *spcmd7[] = {"st", "-n", "sp-gotop", "-g", "130x40", "-e", "gotop", NULL };
-const char *spcmd8[] = {"st", "-n", "sp-lf", "-g", "120x30", "-e", "tmux", "new-session", "-s", "lf", "lf", NULL };
+const char *spcmd0[] = {"alacritty", "--class", "sp-term", "-e", "tmux", "new-session", "-s", "dropdown", NULL };
+const char *spcmd1[] = {"alacritty", "--class", "sp-calc", "-e", "bc", "-lq", NULL };
+const char *spcmd2[] = {"alacritty", "--class", "sp-audio", "-e", "pulsemixer", NULL };
+const char *spcmd3[] = {"alacritty", "--class", "sp-ncmpcpp", "-e", "mp", NULL };
+const char *spcmd4[] = {"alacritty", "--class", "sp-spotifyd", "-e", "spotifyd", NULL };
+const char *spcmd5[] = {"alacritty", "--class", "sp-org", "-e", "emacs", "~/.local/src/Org/tasks.org", NULL };
+const char *spcmd6[] = {"alacritty", "--class", "sp-news", "-e", "newsboat", NULL };
+const char *spcmd7[] = {"alacritty", "--class", "sp-gotop", "-e", "gotop", NULL };
+const char *spcmd8[] = {"alacritty", "--class", "sp-lf", "-e", "tmux", "new-session", "-s", "lf", "lf-ueberzug", NULL };
 
 static Sp scratchpads[] = {
 	/* name          cmd  */
-	{"sp-term",			spcmd0},
-	{"sp-calc",			spcmd1},
-	{"sp-audio",			spcmd2},
-	{"sp-ncmpcpp",			spcmd3},
-	{"sp-spotify",			spcmd4},
-	{"sp-org",	 		spcmd5},
-	{"sp-news",			spcmd6},
-	{"sp-gotop",			spcmd7},
-	{"sp-lf",			spcmd8},
+	{"sp-term",	spcmd0},
+	{"sp-calc",	spcmd1},
+	{"sp-audio",	spcmd2},
+	{"sp-ncmpcpp",	spcmd3},
+	{"sp-spotifyd", spcmd4},
+	{"sp-org",		spcmd5},
+	{"sp-news",	spcmd6},
+	{"sp-gotop",	spcmd7},
+	{"sp-lf",		spcmd8},
 };
 
 /* tagging */
@@ -73,7 +73,7 @@ static const Rule rules[] = {
 	{ NULL,      "sp-calc",        NULL,            SPTAG(1),     1,           1,         0,        -1 },
 	{ NULL,      "sp-audio",       NULL,            SPTAG(2),     1,           1,         0,        -1 },
 	{ NULL,      "sp-ncmpcpp",     NULL,            SPTAG(3),     1,           1,         0,        -1 },
-	{ NULL,      "sp-spotify",     NULL,            SPTAG(4),     1,           1,         0,        -1 },
+	{ NULL,      "sp-spotifyd",    NULL,            SPTAG(4),     1,           1,         0,        -1 },
 	{ NULL,      "sp-org",         NULL,            SPTAG(5),     1,           1,         0,        -1 },
 	{ NULL,      "sp-news",        NULL,            SPTAG(6),     1,           1,         0,        -1 },
 	{ NULL,      "sp-gotop",       NULL,            SPTAG(7),     1,           1,         0,        -1 },
@@ -212,7 +212,7 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_v,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_b,		togglebar,	{0} },
 	/* { MODKEY|ShiftMask,		XK_b,		spawn,		SHCMD("") }, */
-	{ MODKEY,			XK_n,		spawn,		SHCMD(TERMINAL" -e nvim -c VimwikiIndex") },
+	/* { MODKEY,			XK_n,		spawn,		SHCMD(TERMINAL" -e nvim -c VimwikiIndex") }, */
 	{ MODKEY|ShiftMask,		XK_n,		togglescratch,	{.ui = 6} },
 	/* { MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD(TERMINAL" -e newsboat; pkill -RTMIN+6 dwmblocks") }, */
 	{ MODKEY,			XK_m,		togglescratch,	{.ui = 3 } },
