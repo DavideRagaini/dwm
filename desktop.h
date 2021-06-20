@@ -58,6 +58,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class	instance	title		tags mask isfloating isterminal noswallow monitor */
+	{ TERMCLASS,	NULL,		NULL,		0,		0,	1,	0,	-1 },
 	{ "LibreWolf",	NULL,		NULL,		1,		0,	0,	0,	-1 },
 	{ "qutebrowser",NULL,		NULL,		1,		0,	0,	0,	-1 },
 	{ "mpv",	NULL,		NULL,		1 << 8,		1,	0,	0,	-1 },
@@ -65,7 +66,8 @@ static const Rule rules[] = {
 	{ "calibre",	NULL,		NULL,		1 << 6,		0,	0,	0,	-1 },
 	{ "MATLAB R2019b - academic use",NULL,	NULL,	1 << 4,		0,	0,	0,	-1 },
 	{ "Emacs",	NULL,		NULL,		1 << 1,		0,	0,	0,	-1 },
-	{ TERMCLASS,	NULL,		NULL,		0,		0,	1,	0,	-1 },
+	{ "fzfmenu",	NULL,		NULL,		0,		1,	1,	1,	-1 },
+	{ NULL,		"fzfmenu",	NULL,		0,		1,	1,	1,	-1 },
 	{ NULL,		NULL,		"Event Tester",	0,		0,	0,	1,	-1 },
 	{ NULL,		"sp-trm",	NULL,		SPTAG(0),	1,	1,	0,	-1 },
 	{ NULL,		"sp-tlf",	NULL,		SPTAG(1),	1,	1,	0,	-1 },
