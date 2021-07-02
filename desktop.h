@@ -1,6 +1,8 @@
 /* Constants */
-#define TERMINAL "alacritty"
-#define TERMCLASS "Alacritty"
+/* #define TERMINAL "alacritty" */
+/* #define TERMCLASS "Alacritty" */
+#define TERMINAL "st"
+#define TERMCLASS "St"
 
 /* appearance */
 static const unsigned int borderpx = 2;	/* border pixel of windows */
@@ -13,8 +15,8 @@ static const int swallowfloating = 1;	/* 1 means swallow floating windows by def
 static const int smartgaps = 1;		/* 1 means no outer gap when there is only one window */
 static const int showbar = 1;		/* 0 means no bar */
 static const int topbar = 0;		/* 0 means bottom bar */
-static const char *fonts[] = { "Iosevka:size=12", "Inconsolata:size=12" };
-static char dmenufont[] = "Iosevka:size=24";
+static const char *fonts[] = { "Hack Nerd Font:size=11", "Inconsolata:size=12" };
+static char dmenufont[] = "Inconsolata:size=24";
 static char normbgcolor[] = "#2F0B3A";
 static char normbordercolor[] = "#BD93F9";
 static char normfgcolor[] = "#cc00cc";
@@ -32,12 +34,20 @@ typedef struct {
 	const void *cmd;
 } Sp;
 
-const char *spcmd0[] = {"alacritty", "--class", "sp-trm", "-e", "tmux", "new-session", "-s", "dropdown", NULL };
-const char *spcmd1[] = {"alacritty", "--class", "sp-tlf", "-e", "tlf", NULL };
-const char *spcmd2[] = {"alacritty", "--class", "sp-clc", "--config-file", "/home/davide/.config/alacritty/calc.yml", "-e", "bc", "-lq", NULL };
-const char *spcmd3[] = {"alacritty", "--class", "sp-pmx", "--config-file", "/home/davide/.config/alacritty/small.yml", "-e", "pulsemixer", NULL };
-const char *spcmd4[] = {"alacritty", "--class", "sp-nws", "-e", "newsboat", NULL };
-const char *spcmd5[] = {"alacritty", "--class", "sp-mpl", "-e", "mp", NULL };
+/* const char *spcmd0[] = {"alacritty", "--class", "sp-trm", "-e", "tmux", "new-session", "-s", "dropdown", NULL }; */
+/* const char *spcmd1[] = {"alacritty", "--class", "sp-tlf", "-e", "tlf", NULL }; */
+/* const char *spcmd2[] = {"alacritty", "--class", "sp-clc", "--config-file", "/home/davide/.config/alacritty/calc.yml", "-e", "bc", "-lq", NULL }; */
+/* const char *spcmd3[] = {"alacritty", "--class", "sp-pmx", "--config-file", "/home/davide/.config/alacritty/small.yml", "-e", "pulsemixer", NULL }; */
+/* const char *spcmd4[] = {"alacritty", "--class", "sp-nws", "-e", "newsboat", NULL }; */
+/* const char *spcmd5[] = {"alacritty", "--class", "sp-mpl", "-e", "mp", NULL }; */
+const char *spcmd0[] = {"st", "-n", "sp-trm", "-g", "150x50", "-e", "tmux", "new-session", "-s", "dropdown", NULL };
+const char *spcmd1[] = {"st", "-n", "sp-tlf", "-g", "150x50", "-e", "tlf",  NULL };
+const char *spcmd2[] = {"st", "-n", "sp-clc", "-g",  "50x20", "-e", "-f", "monospace:size=16", "bc", "-lq", NULL };
+const char *spcmd3[] = {"st", "-n", "sp-pmx", "-g", "120x25", "-e", "pulsemixer", NULL };
+const char *spcmd4[] = {"st", "-n", "sp-nws", "-g", "150x50", "-e", "newsboat", NULL };
+const char *spcmd5[] = {"st", "-n", "sp-mpl", "-g", "150x50", "-e", "mp", NULL };
+
+const char *spcmd6[] = {"emacs", "--name", "flEmacs", "-g", "220x50", "-f", "org-agenda-list", NULL };
 
 static Sp scratchpads[] = {
 	/* name		cmd */
@@ -47,6 +57,7 @@ static Sp scratchpads[] = {
 	{"sp-pmx",	spcmd3},
 	{"sp-nws",	spcmd4},
 	{"sp-mpl",	spcmd5},
+	{"flEmacs",	spcmd6},
 };
 
 /* tagging */
@@ -61,11 +72,10 @@ static const Rule rules[] = {
 	{ TERMCLASS,	NULL,		NULL,		0,		0,	1,	0,	-1 },
 	{ "LibreWolf",	NULL,		NULL,		1,		0,	0,	0,	-1 },
 	{ "qutebrowser",NULL,		NULL,		1,		0,	0,	0,	-1 },
-	{ "mpv",	NULL,		NULL,		1 << 8,		1,	0,	0,	-1 },
+	{ "mpv",	NULL,		NULL,		1 << 8,		0,	0,	0,	-1 },
 	{ "Chromium",	NULL,		NULL,		1 << 7,		0,	0,	0,	-1 },
 	{ "calibre",	NULL,		NULL,		1 << 6,		0,	0,	0,	-1 },
 	{ "MATLAB R2019b - academic use",NULL,	NULL,	1 << 4,		0,	0,	0,	-1 },
-	{ "Emacs",	NULL,		NULL,		1 << 1,		0,	0,	0,	-1 },
 	{ "fzfmenu",	NULL,		NULL,		0,		1,	1,	1,	-1 },
 	{ NULL,		"fzfmenu",	NULL,		0,		1,	1,	1,	-1 },
 	{ NULL,		NULL,		"Event Tester",	0,		0,	0,	1,	-1 },
@@ -75,6 +85,7 @@ static const Rule rules[] = {
 	{ NULL,		"sp-pmx",	NULL,		SPTAG(3),	1,	1,	0,	-1 },
 	{ NULL,		"sp-nws",	NULL,		SPTAG(4),	1,	1,	0,	-1 },
 	{ NULL,		"sp-mpl",	NULL,		SPTAG(5),	1,	1,	0,	-1 },
+	{ NULL,		"flEmacs",	NULL,		SPTAG(6),	1,	0,	0,	-1 },
 };
 
 /* layout(s) */
@@ -153,7 +164,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,	XK_Tab,		view,		{0} },
 	{ MODKEY,		XK_q,		killclient,	{0} },
 	{ MODKEY,		XK_w,		spawn,		SHCMD("$BROWSER") },
-	{ MODKEY,		XK_e,		spawn,		SHCMD("emacs") },
+	{ MODKEY,		XK_e,		togglescratch,	{.ui = 6 } },
 	{ MODKEY,		XK_r,		togglescratch,	{.ui = 1 } },
 	{ MODKEY,		XK_t,		setlayout,	{.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,	XK_t,		setlayout,	{.v = &layouts[1]} },
@@ -187,7 +198,7 @@ static Key keys[] = {
 	{ MODKEY,		XK_l,		setmfact,	{.f = +0.05} },
 	{ MODKEY,		XK_semicolon,	shiftview,	{.i = 1 } },
 	{ MODKEY|ShiftMask,	XK_semicolon,	shifttag,	{.i = 1 } },
-	/* { MODKEY,		XK_apostrophe,	togglescratch,	{.ui = 1} }, */
+	{ MODKEY,		XK_apostrophe,	spawn,		SHCMD("dmenuunicode") },
 	{ MODKEY,		XK_Return,	togglescratch,	{.ui = 0 } },
 	{ MODKEY|ShiftMask,	XK_Return,	spawn,		{.v = termcmd } },
 
