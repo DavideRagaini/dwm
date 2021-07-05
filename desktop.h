@@ -42,7 +42,7 @@ typedef struct {
 /* const char *spcmd5[] = {"alacritty", "--class", "sp-mpl", "-e", "mp", NULL }; */
 const char *spcmd0[] = {"st", "-n", "sp-trm", "-g", "150x50", "-e", "tmux", "new-session", "-s", "dropdown", NULL };
 const char *spcmd1[] = {"st", "-n", "sp-tlf", "-g", "150x50", "-e", "tlf",  NULL };
-const char *spcmd2[] = {"st", "-n", "sp-clc", "-g",  "50x20", "-e", "-f", "monospace:size=16", "bc", "-lq", NULL };
+const char *spcmd2[] = {"st", "-n", "sp-clc", "-g",  "50x20", "-f", "Inconsolata:size=16", "-e", "bc", "-lq", NULL };
 const char *spcmd3[] = {"st", "-n", "sp-pmx", "-g", "120x25", "-e", "pulsemixer", NULL };
 const char *spcmd4[] = {"st", "-n", "sp-nws", "-g", "150x50", "-e", "newsboat", NULL };
 const char *spcmd5[] = {"st", "-n", "sp-mpl", "-g", "150x50", "-e", "mp", NULL };
@@ -268,14 +268,14 @@ static Key keys[] = {
 	/* { 0, XF86XK_ScreenSaver,	spawn,		SHCMD("") }, */
 	/* { 0, XF86XK_TaskPane,	spawn,		SHCMD("") }, */
 	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 5} }, */
-	/* { MODKEY, XF86XK_Mail,	spawn,		SHCMD("emacs")}, */
+	/* { MODKEY, XF86XK_Mail,	spawn,		SHCMD("")}, */
 	/* { 0, XF86XK_Mail,		togglescratch,	{.ui = 6} }, */
 	/* { 0, XF86XK_MyComputer,	spawn,		SHCMD("") }, */
 	/* { 0, XF86XK_Battery,		spawn,		SHCMD("") }, */
 	/* { 0, XF86XK_HomePage,	spawn,		SHCMD("") }, */
 	/* { 0, XF86XK_Search,		togglescratch,	{.ui = 3 } }, */
 	/* { 0, XF86XK_Favorites,	togglescratch,	{.ui = 1 } }, */
-	/* { 0, XF86XK_Launch5,		spawn,		SHCMD("dmpv") }, */
+	/* { 0, XF86XK_Launch5,		spawn,		SHCMD("") }, */
 	/* { 0, XF86XK_Launch6,		togglescratch,	{.ui = 3 } }, */
 	{ 0, XF86XK_Launch7,		togglescratch,	{.ui = 3 } },
 	{ 0, XF86XK_Launch8,		spawn,		SHCMD("dmpc prev") },
