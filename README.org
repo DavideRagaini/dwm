@@ -1,0 +1,21 @@
+#+TITLE: Readme
+
+* Patches
+** dwm
+*** [?] Multi-monitor
+*** [?] [[https://dwm.suckless.org/patches/xresources/][xresources]]
+*** [?] [[https://dwm.suckless.org/patches/swallow/][swallow]]
+*** [?] [[https://dwm.suckless.org/patches/floatrules/][float rules]]
+*** NO [[https://dwm.suckless.org/patches/stacker/][stacker]]
+*** NO [[https://dwm.suckless.org/patches/systray/][systray]]
+*** DONE [[https://dwm.suckless.org/patches/vanitygaps/][vanity gaps]]
+*** DONE [[https://dwm.suckless.org/patches/scratchpads/][scratchpads]]
+*** DONE [[https://dwm.suckless.org/patches/center/][center]]
+*** DONE [[https://dwm.suckless.org/patches/sticky/][sticky]]
+*** DONE [[https://dwm.suckless.org/patches/actualfullscreen/][actualfullscreen]]
+*** DONE [[https://dwm.suckless.org/patches/restartsig/][restartsig]]
+*** DONE [[https://dwm.suckless.org/patches/hide_vacant_tags/][hide_vacant_tags]]
+*** DONE [[https://dwm.suckless.org/patches/movestack/][movestack]]
+** dwmblocs
+*** DONE [[https://dwm.suckless.org/patches/statuscmd/][statuscmd]]
+*** DONE [[https://github.com/UtkarshVerma/dwmblocks-async][UtkarshVerma/dwmblocks-async]]
