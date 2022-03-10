@@ -59,7 +59,6 @@ static const Rule rules[] = {
     { "MATLAB R2019b - academic use",  NULL,  NULL,    1<<1,  0,  0,  -1 },
     { "Microsoft Teams - Preview",     NULL,  NULL,    1<<5,  0,  0,  -1 },
     { TERMCLASS,         NULL,    NULL,      0,        0,    0,    -1 },
-    { "sxiv",            NULL,    NULL,      0,        0,    0,    -1 },
     { "LibreWolf",       NULL,    NULL,      1,        0,    0,    -1 },
     { "qutebrowser",     NULL,    NULL,      1,        0,    0,    -1 },
     { "mpv",             NULL,    NULL,    1<<8,       0,    0,    -1 },
@@ -207,7 +206,8 @@ static Key keys[] = {
     { MODKEY|ShiftMask,    XK_m,           spawn,           SHCMD("pkill spotifyd; pkill spotify-tui") },
     { MODKEY,              XK_comma,       spawn,           SHCMD("dmpc toggle") },
     { MODKEY,              XK_period,      spawn,           SHCMD("tppctl toggle") },
-    /* { MODKEY,              XK_slash,       spawn,           SHCMD("") }, */
+    { MODKEY|ShiftMask,    XK_period,      spawn,           SHCMD("tppctl pause_all") },
+    { MODKEY,              XK_slash,       spawn,           SHCMD("mprisctl play-pause") },
 
     { MODKEY,              XK_Left,        focusmon,        {.i = -1 } },
     { MODKEY|ShiftMask,    XK_Left,        tagmon,          {.i = -1 } },
@@ -252,9 +252,9 @@ static Key keys[] = {
     /* { 0,           XF86XK_AudioRaiseVolume,spawn,           SHCMD("pulsemixer --change-volume +5; kill -44 $(pidof dwmblocks)") }, */
     /* { 0,           XF86XK_AudioLowerVolume,spawn,           SHCMD("pulsemixer --change-volume -5; kill -44 $(pidof dwmblocks)") }, */
     { 0,        XF86XK_AudioPrev,          spawn,           SHCMD("dmpc prev") },
-    { MODKEY,   XF86XK_AudioPrev,          spawn,           SHCMD("tppctl seek -10") },
+    { MODKEY,   XF86XK_AudioPrev,          spawn,           SHCMD("tppctl bseek") },
     { 0,        XF86XK_AudioNext,          spawn,           SHCMD("dmpc next") },
-    { MODKEY,   XF86XK_AudioNext,          spawn,           SHCMD("tppctl seek 10") },
+    { MODKEY,   XF86XK_AudioNext,          spawn,           SHCMD("tppctl fseek") },
     { 0,        XF86XK_AudioPlay,          spawn,           SHCMD("dmpc toggle") },
     { MODKEY,   XF86XK_AudioPlay,          spawn,           SHCMD("tppctl toggle") },
     { 0,        XF86XK_AudioStop,          togglescratch,   {.ui = 3 } },
@@ -281,9 +281,9 @@ static Key keys[] = {
     /* { 0,        XF86XK_Launch6,            spawn,           SHCMD("") }, */
     { 0,        XF86XK_Launch7,           togglescratch,    {.ui = 3} },
     { 0,        XF86XK_Launch8,           spawn,            SHCMD("dmpc prev") },
-    { MODKEY,   XF86XK_Launch8,           spawn,            SHCMD("tppctl position 10-") },
+    { MODKEY,   XF86XK_Launch8,           spawn,            SHCMD("tppctl bseek") },
     { 0,        XF86XK_Launch9,           spawn,            SHCMD("dmpc next") },
-    { MODKEY,   XF86XK_Launch9,           spawn,            SHCMD("tppctl position 10+") },
+    { MODKEY,   XF86XK_Launch9,           spawn,            SHCMD("tppctl fseek") },
     /* {0,         XF86XK_Back,              shiftview,        {.i = -1} }, */
     /* {0,         XF86XK_Forward,           shiftview,        {.i = 1} }, */
 
