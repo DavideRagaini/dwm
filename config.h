@@ -25,16 +25,18 @@ static const char *colors[][3] = {
 
 #define TERMINAL "st"
 #define TERMCLASS "St"
-const char *spcmd0[] = {"st", "-n", "sp-trm", "-g", "170x50", "-e", "tmux", "new-session", "-s", "dropdown", NULL };
-const char *spcmd1[] = {"st", "-n", "sp-tlf", "-g", "170x50", "-e", "tlf",  NULL };
 typedef struct {
     const char *name;
     const void *cmd;
 } Sp;
-const char *spcmd2[] = {"st", "-n", "sp-clc", "-g",  "60x30", "-e", "wcalc", NULL };
-const char *spcmd3[] = {"st", "-n", "sp-pmx", "-g", "120x20", "-e", "pulsemixer", NULL };
-const char *spcmd4[] = {"st", "-n", "sp-nws", "-g", "150x50", "-e", "newsboat", NULL };
-const char *spcmd5[] = {"st", "-n", "sp-mpl", "-g", "160x50", "-e", "mp", NULL };
+
+#define FTERM(name,size, ...) { TERMINAL, "-n", name, "-g", size, "-e", __VA_ARGS__, NULL }
+const char *spcmd0[] = FTERM("sp-trm", "170x50", "tmux", "new-session", "-s", "dropdown");
+const char *spcmd1[] = FTERM("sp-tlf", "170x50", "tlf");
+const char *spcmd2[] = FTERM("sp-clc", "60x30",  "wcalc");
+const char *spcmd3[] = FTERM("sp-pmx", "120x20", "pulsemixer");
+const char *spcmd4[] = FTERM("sp-nws", "150x50", "newsboat");
+const char *spcmd5[] = FTERM("sp-mpl", "160x50", "mp");
 const char *spcmd6[] = {"Eagenda",  NULL };
 
 static Sp scratchpads[] = {
