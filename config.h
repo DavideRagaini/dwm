@@ -1,3 +1,6 @@
+#define TERMINAL "st"
+#define TERMCLASS "St"
+#define TOUCHPAD 0
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 10;       /* snap pixel */
@@ -8,8 +11,9 @@ static const unsigned int gappov    = 20;       /* vert outer gap between window
 static int smartgaps                = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]        = { "Hack Nerd Font Mono:size=9:antialias=true:autohint=true",
-                                      "FiraCode Nerd Font Mono:pixelsize=9:antialias=true:autohint=true"  };
+static const char *fonts[]        = { "SymbolsNerdFont:size=9",
+    "mononoki Nerd Font Mono:size=10:antialias=true:autohint=true",
+    "FiraCode Nerd Font Mono:pixelsize=10:antialias=true:autohint=true" };
 static const char dmenufont[]       = "Hack Nerd Font Mono:size=18";
 static const char normbgcolor[]     = "#2F0B3A";
 static const char normbordercolor[] = "#BD93F9";
@@ -23,8 +27,6 @@ static const char *colors[][3] = {
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
-#define TERMINAL "st"
-#define TERMCLASS "St"
 typedef struct {
     const char *name;
     const void *cmd;
@@ -51,7 +53,8 @@ static Sp scratchpads[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+/* static const char *tags[] = { "1🐉", "2", "3", "4", "5", "6", "7", "8", "9" }; */
+static const char *tags[] = { "1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 " }; //ﭬ
 static const Rule rules[] = {
     /* xprop(1):
      *  WM_CLASS(STRING) = instance, class
@@ -61,9 +64,8 @@ static const Rule rules[] = {
     { "MATLAB R2019b - academic use",  NULL,  NULL,    1<<1,  0,  0,  -1 },
     { "Microsoft Teams - Preview",     NULL,  NULL,    1<<5,  0,  0,  -1 },
     { TERMCLASS,         NULL,    NULL,      0,        0,    0,    -1 },
-    { "LibreWolf",       NULL,    NULL,      1,        0,    0,    -1 },
+    { "librewolf",       NULL,    NULL,      1,        0,    0,    -1 },
     { "qutebrowser",     NULL,    NULL,      1,        0,    0,    -1 },
-    { "mpv",             NULL,    NULL,    1<<8,       0,    0,    -1 },
     { "Chromium",        NULL,    NULL,    1<<7,       0,    0,    -1 },
     { "Psensor",         NULL,    NULL,    1<<7,       0,    0,    -1 },
     { "calibre",         NULL,    NULL,    1<<7,       0,    0,    -1 },
@@ -78,6 +80,7 @@ static const Rule rules[] = {
     { "tabbed",          NULL,    NULL,    1<<2,       0,    0,    -1 },
     { "Zathura",         NULL,    NULL,    1<<2,       0,    0,    -1 },
     { NULL,          "emacs",     NULL,    1<<1,       0,    0,    -1 },
+    { NULL,          "mpvFloat",  NULL,    1<<8,       0,    1,    -1 },
     { NULL,          "fzfmenu",   NULL,      0,        1,    1,    -1 },
     { NULL,          "sp-trm",    NULL,    SPTAG(0),   1,    1,    -1 },
     { NULL,          "sp-tlf",    NULL,    SPTAG(1),   1,    1,    -1 },
@@ -86,7 +89,6 @@ static const Rule rules[] = {
     { NULL,          "sp-nws",    NULL,    SPTAG(4),   1,    1,    -1 },
     { NULL,          "sp-mpl",    NULL,    SPTAG(5),   1,    1,    -1 },
     { NULL,          NULL,    "Eagenda",   SPTAG(6),   1,    1,    -1 },
-    { NULL,          NULL,    "fmpv",      1<<8,       0,    1,    -1 },
     { NULL,          NULL,    "Event Tester",    0,    0,    0,    -1 },
     { "LibreWolf",   NULL,    "Library",         0,    1,    1,    -1 },
     { "LibreWolf",   NULL,    "About LibreWolf", 0,    1,    1,    -1 },
@@ -336,10 +338,12 @@ static Button buttons[] = {
     { ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
     { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
     { ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
+    { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+    #if TOUCHPAD
     { ClkClientWin,         MODKEY,         Button1,        resizemouse,    {0} },
+    #endif
     { ClkTagBar,            0,              Button1,        view,           {0} },
     { ClkTagBar,            0,              Button3,        toggleview,     {0} },
     { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
     { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
