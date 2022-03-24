@@ -97,7 +97,7 @@ static const Rule rules[] = {
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
 /* layout(s) */
-static const float mfact = 0.55;       /* factor of master area size [0.05..0.95] */
+static const float mfact = 0.50;       /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;        /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -146,10 +146,11 @@ static Key keys[] = {
     { MODKEY,              XK_grave,       spawn,           SHCMD("dmenuunicode") },
     { MODKEY,              XK_0,           view,            {.ui = ~0 } },
     { MODKEY|ShiftMask,    XK_0,           tag,             {.ui = ~0 } },
-    { MODKEY,              XK_BackSpace,   spawn,           SHCMD("timeOnPc shutdown") },
-    { MODKEY|ShiftMask,    XK_BackSpace,   spawn,           SHCMD("timeOnPc") },
+    { MODKEY,              XK_BackSpace,   spawn,           SHCMD("sysact shutdown") },
+    { MODKEY|ShiftMask,    XK_BackSpace,   spawn,           SHCMD("sysact") },
 
     { MODKEY,              XK_Tab,         view,            {0} },
+    { MODKEY|ShiftMask,    XK_Tab,         spawn,           SHCMD("dunstctl history-pop") },
     { MODKEY,              XK_q,           killclient,      {0} },
     /* { MODKEY|ShiftMask,    XK_q,           quit,            {0} }, */
     { MODKEY,              XK_w,           spawn,           SHCMD("$BROWSER") },
@@ -210,7 +211,8 @@ static Key keys[] = {
     { MODKEY|ShiftMask,    XK_m,           spawn,           SHCMD("pkill spotifyd; pkill spotify-tui") },
     { MODKEY,              XK_comma,       spawn,           SHCMD("dmpc toggle") },
     { MODKEY,              XK_period,      spawn,           SHCMD("tppctl toggle") },
-    { MODKEY|ShiftMask,    XK_period,      spawn,           SHCMD("tppctl pause_all") },
+    { MODKEY|ShiftMask,    XK_period,      spawn,           SHCMD("tppctl invert") },
+    { MODKEY|ControlMask,  XK_period,      spawn,           SHCMD("tppctl pause_all") },
     { MODKEY,              XK_slash,       spawn,           SHCMD("mprisctl play-pause") },
 
     { MODKEY,              XK_Left,        focusmon,        {.i = -1 } },
