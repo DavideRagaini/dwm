@@ -39,7 +39,8 @@ const char *spcmd2[] = FTERM("sp-clc", "60x30",  "wcalc");
 const char *spcmd3[] = FTERM("sp-pmx", "120x20", "pulsemixer");
 const char *spcmd4[] = FTERM("sp-nws", "150x50", "newsboat");
 const char *spcmd5[] = FTERM("sp-mpl", "160x50", "mp");
-const char *spcmd6[] = {"Eagenda",  NULL };
+const char *spcmd6[] = FTERM("sp-alm", "120x20", "sp-alm");
+const char *spcmd7[] = {"Eagenda",  NULL };
 
 static Sp scratchpads[] = {
    /* name        cmd  */
@@ -49,12 +50,12 @@ static Sp scratchpads[] = {
     {"sp-pmx",    spcmd3},
     {"sp-nws",    spcmd4},
     {"sp-mpl",    spcmd5},
-    {"Eagenda",   spcmd6},
+    {"sp-alm",    spcmd6},
+    {"Eagenda",   spcmd7},
 };
 
 /* tagging */
-/* static const char *tags[] = { "1🐉", "2", "3", "4", "5", "6", "7", "8", "9" }; */
-static const char *tags[] = { "1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 " }; //ﭬ
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const Rule rules[] = {
     /* xprop(1):
      *  WM_CLASS(STRING) = instance, class
@@ -81,6 +82,8 @@ static const Rule rules[] = {
     { "Zathura",         NULL,    NULL,    1<<2,       0,    0,    -1 },
     { NULL,          "emacs",     NULL,    1<<1,       0,    0,    -1 },
     { NULL,          "mpvFloat",  NULL,    1<<8,       0,    1,    -1 },
+    { NULL,          "mpvAlarm",  NULL,      0,        1,    1,    -1 },
+    { NULL,/* mpv */ "gl",        NULL,      0,        0,    0,    -1 },
     { NULL,          "fzfmenu",   NULL,      0,        1,    1,    -1 },
     { NULL,          "sp-trm",    NULL,    SPTAG(0),   1,    1,    -1 },
     { NULL,          "sp-tlf",    NULL,    SPTAG(1),   1,    1,    -1 },
@@ -88,7 +91,8 @@ static const Rule rules[] = {
     { NULL,          "sp-pmx",    NULL,    SPTAG(3),   1,    1,    -1 },
     { NULL,          "sp-nws",    NULL,    SPTAG(4),   1,    1,    -1 },
     { NULL,          "sp-mpl",    NULL,    SPTAG(5),   1,    1,    -1 },
-    { NULL,          NULL,    "Eagenda",   SPTAG(6),   1,    1,    -1 },
+    { NULL,          "sp-alm",    NULL,    SPTAG(6),   1,    1,    -1 },
+    { NULL,          NULL,    "Eagenda",   SPTAG(7),   1,    1,    -1 },
     { NULL,          NULL,    "Event Tester",    0,    0,    0,    -1 },
     { "LibreWolf",   NULL,    "Library",         0,    1,    1,    -1 },
     { "LibreWolf",   NULL,    "About LibreWolf", 0,    1,    1,    -1 },
@@ -146,7 +150,7 @@ static Key keys[] = {
     { MODKEY,              XK_grave,       spawn,           SHCMD("dmenuunicode") },
     { MODKEY,              XK_0,           view,            {.ui = ~0 } },
     { MODKEY|ShiftMask,    XK_0,           tag,             {.ui = ~0 } },
-    { MODKEY,              XK_BackSpace,   spawn,           SHCMD("sysact shutdown") },
+    { MODKEY,              XK_BackSpace,   spawn,           SHCMD("sysact Shutdown") },
     { MODKEY|ShiftMask,    XK_BackSpace,   spawn,           SHCMD("sysact") },
 
     { MODKEY,              XK_Tab,         view,            {0} },
@@ -156,7 +160,7 @@ static Key keys[] = {
     { MODKEY,              XK_w,           spawn,           SHCMD("$BROWSER") },
     { MODKEY|ShiftMask,    XK_w,           spawn,           SHCMD("librewolf") },
     { MODKEY|ControlMask,  XK_w,           spawn,           SHCMD("librewolf --private-window") },
-    { MODKEY,              XK_e,           togglescratch,   {.ui = 6} },
+    { MODKEY,              XK_e,           togglescratch,   {.ui = 7} },
     { MODKEY|ShiftMask,    XK_e,           spawn,           SHCMD("emacsclient -c -a 'emacs'") },
     { MODKEY,              XK_r,           togglescratch,   {.ui = 1} },
     { MODKEY,              XK_t,           setlayout,       {.v = &layouts[0]} },
@@ -178,7 +182,7 @@ static Key keys[] = {
     /* { MODKEY,              XK_bracketright, spawn,           SHCMD("") }, */
     { MODKEY,              XK_backslash,   view,            {0} },
 
-    /* { MODKEY,              XK_a,          shiftview,         { .i = -1 } }, */
+    { MODKEY,              XK_a,           togglescratch,   {.ui = 6} },
     /* { MODKEY|ShiftMask,    XK_a,          shifttag,          { .i = -1 } }, */
     { MODKEY,              XK_s,           togglesticky,    {0} },
     { MODKEY,              XK_d,           spawn,           SHCMD("dmenu_run") },
@@ -246,7 +250,7 @@ static Key keys[] = {
 
     { 0,                   XK_Print,       spawn,           SHCMD("maim ~/Storage/F$(date '+%y%m%d-%H%M-%S').png") },
     { MODKEY,              XK_Print,       spawn,           SHCMD("maimpick") },
-    { MODKEY,              XK_Delete,      togglescratch,   {.ui = 6} },
+    /* { MODKEY,              XK_Delete,      togglescratch,   {.ui = 6} }, */
     /* { MODKEY,              XK_Scroll_Lock, spawn,           SHCMD("") }, */
 
     { 0,        XF86XK_AudioMute,          spawn,           SHCMD("amixer set -q Master toggle; kill -39 $(pidof dwmblocks)") },
