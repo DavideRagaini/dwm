@@ -83,7 +83,7 @@ static const Rule rules[] = {
     { NULL,          "emacs",     NULL,    1<<1,       0,    0,    -1 },
     { NULL,          "mpvFloat",  NULL,    1<<8,       0,    1,    -1 },
     { NULL,          "mpvAlarm",  NULL,      0,        1,    1,    -1 },
-    { NULL,/* mpv */ "gl",        NULL,      0,        0,    0,    -1 },
+    { NULL,/* mpv */ "gl",        NULL,    1<<8,        0,    0,    -1 },
     { NULL,          "fzfmenu",   NULL,      0,        1,    1,    -1 },
     { NULL,          "sp-trm",    NULL,    SPTAG(0),   1,    1,    -1 },
     { NULL,          "sp-tlf",    NULL,    SPTAG(1),   1,    1,    -1 },
@@ -265,8 +265,8 @@ static Key keys[] = {
     { MODKEY,   XF86XK_AudioPrev,          spawn,           SHCMD("tppctl bseek") },
     { 0,        XF86XK_AudioNext,          spawn,           SHCMD("dmpc next") },
     { MODKEY,   XF86XK_AudioNext,          spawn,           SHCMD("tppctl fseek") },
-    { 0,        XF86XK_AudioPlay,          spawn,           SHCMD("dmpc toggle") },
-    { MODKEY,   XF86XK_AudioPlay,          spawn,           SHCMD("tppctl toggle") },
+    { 0,        XF86XK_AudioPlay,          spawn,           SHCMD("tppctl invert") },
+    { MODKEY,   XF86XK_AudioPlay,          spawn,           SHCMD("dmpc toggle") },
     { 0,        XF86XK_AudioStop,          togglescratch,   {.ui = 3 } },
 
     /* { 0,        XF86XK_AudioRewind,        spawn,           SHCMD("") }, */
