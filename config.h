@@ -139,7 +139,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run" };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { TERMINAL, NULL };
 
 #include <X11/XF86keysym.h>
@@ -159,7 +159,7 @@ static Key keys[] = {
     { MODKEY,              XK_q,           killclient,      {0} },
     /* { MODKEY|ShiftMask,    XK_q,           quit,            {0} }, */
     { MODKEY,              XK_w,           spawn,           SHCMD("$BROWSER") },
-    { MODKEY|ShiftMask,    XK_w,           spawn,           SHCMD("librewolf") },
+    { MODKEY|ShiftMask,    XK_w,           spawn,           SHCMD("$BROWSER2") },
     { MODKEY|ControlMask,  XK_w,           spawn,           SHCMD("librewolf --private-window") },
     { MODKEY,              XK_e,           togglescratch,   {.ui = 7} },
     { MODKEY|ShiftMask,    XK_e,           spawn,           SHCMD("emacsclient -c -a 'emacs'") },
