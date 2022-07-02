@@ -1,8 +1,4 @@
 *.orig
 *.rej
-larbs.pdf
-patches
-util.o
+*.o
 dwm
-dwm.o
-drw.o

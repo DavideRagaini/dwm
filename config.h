@@ -8,7 +8,7 @@ static const unsigned int gappih    = 20;       /* horiz inner gap between windo
 static const unsigned int gappiv    = 20;       /* vert inner gap between windows */
 static const unsigned int gappoh    = 20;       /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov    = 20;       /* vert outer gap between windows and screen edge */
-static int smartgaps                = 0;        /* 1 means no outer gap when there is only one window */
+static int smartgaps                = 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]        = { "SymbolsNerdFont:size=9",
@@ -239,11 +239,13 @@ static Key keys[] = {
     { MODKEY|ShiftMask,    XK_F5,          spawn,           SHCMD("xrdb -remove") },
     /* { MODKEY,              XK_F6,          spawn,           SHCMD("") }, */
     { MODKEY,              XK_F7,          spawn,           SHCMD("i3lock -e -f -c 1d2021 -i ~/.config/Icons/lockscreen.png; xset dpms force off") },
-    { MODKEY,              XK_F8,          spawn,           SHCMD("t-tlp && pkill -RTMIN+7 dwmblocks") },
+    { MODKEY,              XK_F8,          spawn,           SHCMD("t-tlp") },
     { MODKEY,              XK_F9,          spawn,           SHCMD("dmenumount") },
     { MODKEY,              XK_F10,         spawn,           SHCMD("dmenuumount") },
-    /* { MODKEY,              XK_F11,         spawn,           SHCMD("") }, */
-    { MODKEY,              XK_F12,         spawn,           SHCMD(TERMINAL " nmtui") },
+    { MODKEY,              XK_F11,         spawn,           SHCMD("dmpc prev") },
+    { MODKEY|ShiftMask,    XK_F11,         spawn,           SHCMD("tppclt bseek") },
+    { MODKEY,              XK_F12,         spawn,           SHCMD("dmpc next") },
+    { MODKEY|ShiftMask,    XK_F12,         spawn,           SHCMD("tppclt fseek") },
     /* { MODKEY|ShiftMask,    XK_F12,         xrdb,            {.v = NULL } }, */
     { MODKEY,              XK_space,       zoom,            {0} },
     { MODKEY|ShiftMask,    XK_space,       togglefloating,  {0} },
@@ -254,7 +256,7 @@ static Key keys[] = {
     /* { MODKEY,              XK_Scroll_Lock, spawn,           SHCMD("") }, */
 
     { 0,        XF86XK_AudioMute,          spawn,           SHCMD("amixer set -q Master toggle; kill -39 $(pidof dwmblocks)") },
-    { MODKEY,   XF86XK_AudioMute,          spawn,           SHCMD("output-audio && pkill -RTMIN+5 dwmblocks") },
+    { MODKEY,   XF86XK_AudioMute,          spawn,           SHCMD("output-audio") },
     { 0,        XF86XK_AudioRaiseVolume,   spawn,           SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%; kill -39 $(pidof dwmblocks)") },
     { 0,        XF86XK_AudioLowerVolume,   spawn,           SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%; kill -39 $(pidof dwmblocks)") },
     /* { 0,        XF86XK_AudioMute,          spawn,           SHCMD("pulsemixer --toggle-mute; kill -44 $(pidof dwmblocks)") }, */
