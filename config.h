@@ -147,7 +147,8 @@ static const char *termcmd[]  = { TERMINAL, NULL };
 static Key keys[] = {
     /* modifier            key             function         argument */
     /* { MODKEY|ShiftMask,    XK_Escape,      spawn,           SHCMD("") }, */
-    { MODKEY,              XK_grave,       spawn,           SHCMD("dmenuunicode") },
+    { MODKEY,              XK_grave,       spawn,           SHCMD("dunstctl close") },
+    { MODKEY|ShiftMask,    XK_grave,       spawn,           SHCMD("dunstctl history-pop") },
     { MODKEY,              XK_0,           view,            {.ui = ~0 } },
     { MODKEY|ShiftMask,    XK_0,           tag,             {.ui = ~0 } },
     { MODKEY,              XK_BackSpace,   spawn,           SHCMD("sysact Shutdown") },
@@ -219,10 +220,16 @@ static Key keys[] = {
     { MODKEY|ControlMask,  XK_period,      spawn,           SHCMD("tppctl pause_all") },
     { MODKEY,              XK_slash,       spawn,           SHCMD("mprisctl play-pause") },
 
+    { MODKEY,              XK_Up,          spawn,           SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%; kill -39 $(pidof dwmblocks)") },
+    { MODKEY|ShiftMask,    XK_Up,          spawn,           SHCMD("output-audio") },
+    { MODKEY,              XK_Down,        spawn,           SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%; kill -39 $(pidof dwmblocks)") },
+    { MODKEY|ShiftMask,    XK_Down,        spawn,           SHCMD("amixer set -q Master toggle; kill -39 $(pidof dwmblocks)") },
     { MODKEY,              XK_Left,        focusmon,        {.i = -1 } },
     { MODKEY|ShiftMask,    XK_Left,        tagmon,          {.i = -1 } },
+    { MODKEY|ControlMask,  XK_Left,        spawn,           SHCMD("dmpc prev") },
     { MODKEY,              XK_Right,       focusmon,        {.i = +1 } },
     { MODKEY|ShiftMask,    XK_Right,       tagmon,          {.i = +1 } },
+    { MODKEY|ControlMask,  XK_Right,       spawn,           SHCMD("dmpc next") },
 
     /* { MODKEY,              XK_Page_Up,     shiftview,       { .i = -1 } }, */
     /* { MODKEY|ShiftMask,    XK_Page_Up,     shifttag,        { .i = -1 } }, */
@@ -237,8 +244,8 @@ static Key keys[] = {
     { MODKEY|ShiftMask,    XK_F3,          spawn,           SHCMD("bluetooth toggle && pkill -RTMIN+4 dwmblocks") },
     { MODKEY,              XK_F5,          spawn,           SHCMD("xrdb -merge ~/.config/X11/xresources_dir/light") },
     { MODKEY|ShiftMask,    XK_F5,          spawn,           SHCMD("xrdb -remove") },
-    /* { MODKEY,              XK_F6,          spawn,           SHCMD("") }, */
-    { MODKEY,              XK_F7,          spawn,           SHCMD("i3lock -e -f -c 1d2021 -i ~/.config/Icons/lockscreen.png; xset dpms force off") },
+    { MODKEY,              XK_F6,          togglescratch,   {.ui = 3 } },
+    { MODKEY,              XK_F7,          spawn,           SHCMD("i3lock -e -f -c 1d2021 -i ~/Storage/Pictures/lockscreen.png; xset dpms force off") },
     { MODKEY,              XK_F8,          spawn,           SHCMD("t-tlp") },
     { MODKEY,              XK_F9,          spawn,           SHCMD("dmenumount") },
     { MODKEY,              XK_F10,         spawn,           SHCMD("dmenuumount") },
