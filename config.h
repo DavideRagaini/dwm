@@ -2,7 +2,7 @@
 #define TERMCLASS "St"
 #define TOUCHPAD 0
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 10;       /* snap pixel */
 static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 20;       /* vert inner gap between windows */
@@ -78,12 +78,13 @@ static const Rule rules[] = {
     { "Gimp",            NULL,    NULL,    1<<3,       0,    0,    -1 },
     { "Inkscape",        NULL,    NULL,    1<<3,       0,    0,    -1 },
     { "FreeCAD",         NULL,    NULL,    1<<3,       0,    0,    -1 },
+    { "OpenSCAD",        NULL,    NULL,    1<<3,       0,    0,    -1 },
     { "tabbed",          NULL,    NULL,    1<<2,       0,    0,    -1 },
     { "Zathura",         NULL,    NULL,    1<<2,       0,    0,    -1 },
     { NULL,          "emacs",     NULL,    1<<1,       0,    0,    -1 },
     { NULL,          "mpvFloat",  NULL,    1<<8,       0,    1,    -1 },
     { NULL,          "mpvAlarm",  NULL,      0,        1,    1,    -1 },
-    { NULL,/* mpv */ "gl",        NULL,    1<<8,        0,    0,    -1 },
+    { NULL,/* mpv */ "gl",        NULL,    1<<8,       0,    0,    -1 },
     { NULL,          "fzfmenu",   NULL,      0,        1,    1,    -1 },
     { NULL,          "sp-trm",    NULL,    SPTAG(0),   1,    1,    -1 },
     { NULL,          "sp-tlf",    NULL,    SPTAG(1),   1,    1,    -1 },
@@ -120,6 +121,7 @@ static const Layout layouts[] = {
     { ":::",      gaplessgrid },
     { "|M|",      centeredmaster },
     { ">M>",      centeredfloatingmaster },
+    { "[M]",      monocle },
     { "><>",      NULL },    /* no layout function means floating behavior */
     { NULL,       NULL },
 };
@@ -189,7 +191,8 @@ static Key keys[] = {
     { MODKEY,              XK_d,           spawn,           SHCMD("dmenu_run") },
     { MODKEY|ShiftMask,    XK_d,           spawn,           SHCMD("via") },
     { MODKEY,              XK_f,           togglefullscr,   {0} },
-    { MODKEY|ShiftMask,    XK_f,           setlayout,       {.v = &layouts[12]} },
+    { MODKEY|ShiftMask,    XK_f,           setlayout,       {.v = &layouts[13]} },
+    { MODKEY|ControlMask,  XK_f,           setlayout,       {.v = &layouts[12]} },
     { MODKEY,              XK_g,           togglegaps,      {0} },
     { MODKEY|ShiftMask,    XK_g,           defaultgaps,     {0} },
     { MODKEY,              XK_h,           setmfact,        {.f = -0.05} },
