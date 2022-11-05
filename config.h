@@ -15,12 +15,13 @@ static const char *fonts[]        = { "SymbolsNerdFont:size=9",
     "mononoki Nerd Font Mono:size=10:antialias=true:autohint=true",
     "FiraCode Nerd Font Mono:pixelsize=10:antialias=true:autohint=true" };
 static const char dmenufont[]       = "Hack Nerd Font Mono:size=18";
+static const char dmenufont[]       = "Liberation Mono:size=18";
 static const char normbgcolor[]     = "#2F0B3A";
-static const char normbordercolor[] = "#BD93F9";
-static const char normfgcolor[]     = "#cc00cc";
-static const char selfgcolor[]      = "#dddddd";
+static const char normbordercolor[] = "#FFFFFF";
+static const char normfgcolor[]     = "#FF00FF";
+static const char selfgcolor[]      = "#FFFFFF";
 static const char selbordercolor[]  = "#FF00FF";
-static const char selbgcolor[]      = "#571dc2";
+static const char selbgcolor[]      = "#571DC2";
 static const char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -33,9 +34,9 @@ typedef struct {
 } Sp;
 
 #define FTERM(name,size, ...) { TERMINAL, "-n", name, "-g", size, "-e", __VA_ARGS__, NULL }
-const char *spcmd0[] = FTERM("sp-trm", "170x50", "tmux", "new-session", "-s", "dropdown");
+const char *spcmd0[] = FTERM("sp-trm", "170x50", "tterm");
 const char *spcmd1[] = FTERM("sp-tlf", "170x50", "tlf");
-const char *spcmd2[] = FTERM("sp-clc", "60x30",  "wcalc");
+const char *spcmd2[] = FTERM("sp-clc", "60x30",  "wcalc","-P","-1","-c","-q","--ints","-C","-p","-r","--remember");
 const char *spcmd3[] = FTERM("sp-pmx", "120x20", "pulsemixer");
 const char *spcmd4[] = FTERM("sp-nws", "150x50", "newsboat");
 const char *spcmd5[] = FTERM("sp-mpl", "160x50", "mp");
@@ -65,8 +66,8 @@ static const Rule rules[] = {
     { "MATLAB R2019b - academic use",  NULL,  NULL,    1<<1,  0,  0,  -1 },
     { "Microsoft Teams - Preview",     NULL,  NULL,    1<<5,  0,  0,  -1 },
     { TERMCLASS,          NULL,     NULL,       0,        0,    0,    -1 },
-    { "librewolf",        NULL,     NULL,       1,        0,    0,    -1 },
-    { "qutebrowser",      NULL,     NULL,       1,        0,    0,    -1 },
+    { "librewolf",        NULL,     NULL,       2,        0,    0,    -1 },
+    { "qutebrowser",      NULL,     NULL,       2,        0,    0,    -1 },
     { "Chromium",         NULL,     NULL,    1<<7,        0,    0,    -1 },
     { "Psensor",          NULL,     NULL,    1<<7,        0,    0,    -1 },
     { "calibre",          NULL,     NULL,    1<<7,        0,    0,    -1 },
@@ -81,7 +82,7 @@ static const Rule rules[] = {
     { "OpenSCAD",         NULL,     NULL,    1<<3,        0,    0,    -1 },
     { "tabbed",           NULL,     NULL,    1<<2,        0,    0,    -1 },
     { "Zathura",          NULL,     NULL,    1<<2,        0,    0,    -1 },
-    { NULL,           "emacs",      NULL,    1<<1,        0,    0,    -1 },
+    { NULL,           "emacs",      NULL,       1,        0,    0,    -1 },
     { NULL,           "mpvFloat",   NULL,    1<<8,        0,    1,    -1 },
     { NULL,           "mpvAlarm",   NULL,       0,        1,    1,    -1 },
     { NULL,/* mpv */  "gl",         NULL,    1<<8,        0,    0,    -1 },
