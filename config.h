@@ -17,7 +17,7 @@ static const char *fonts[]        = { "SymbolsNerdFont:size=9",
 static const char dmenufont[]       = "Hack Nerd Font Mono:size=18";
 static const char dmenufont[]       = "Liberation Mono:size=18";
 static const char normbgcolor[]     = "#2F0B3A";
-static const char normbordercolor[] = "#FFFFFF";
+static const char normbordercolor[] = "#BD93F9";
 static const char normfgcolor[]     = "#FF00FF";
 static const char selfgcolor[]      = "#FFFFFF";
 static const char selbordercolor[]  = "#FF00FF";
