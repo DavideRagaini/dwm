@@ -2,7 +2,7 @@
 #define TERMCLASS "St"
 #define TOUCHPAD 0
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 10;       /* snap pixel */
 static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 20;       /* vert inner gap between windows */
@@ -11,10 +11,13 @@ static const unsigned int gappov    = 20;       /* vert outer gap between window
 static int smartgaps                = 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]        = { "SymbolsNerdFont:size=9",
-    "mononoki Nerd Font Mono:size=10:antialias=true:autohint=true",
-    "FiraCode Nerd Font Mono:pixelsize=10:antialias=true:autohint=true" };
-static const char dmenufont[]       = "Hack Nerd Font Mono:size=18";
+static const char *fonts[]        = {
+    /* "SymbolsNerdFont:size=9", */
+    /* "FontAwesome:size=9", */
+    /* "all-the-icons:size=9", */
+    "Fantasque Sans Mono:size=12:antialias=true:autohint=true",
+    "Liberation Mono:size=10:antialias=true:autohint=true",
+    "Linux Libertine Mono O:pixelsize=10:antialias=true:autohint=true" };
 static const char dmenufont[]       = "Liberation Mono:size=18";
 static const char normbgcolor[]     = "#2F0B3A";
 static const char normbordercolor[] = "#BD93F9";
@@ -240,7 +243,7 @@ static Key keys[] = {
     /* { MODKEY,              XK_Page_Down,   shiftview,       { .i = +1 } }, */
     /* { MODKEY|ShiftMask,    XK_Page_Down,   shifttag,        { .i = +1 } }, */
     { MODKEY,              XK_Insert,      spawn,           SHCMD("clipmenu") },
-    { MODKEY|ShiftMask,    XK_Insert,      spawn,           SHCMD("notify-send \"📋 Clipboard contents:\" \"$(xclip -o -selection clipboard)\"") },
+    { MODKEY|ShiftMask,    XK_Insert,      spawn,           SHCMD("notify-send \" Clipboard contents:\" \"$(xclip -o -selection clipboard)\"") },
 
     /* { MODKEY,              XK_F1,          spawn,           SHCMD("") }, */
     /* { MODKEY,              XK_F2,          spawn,           SHCMD("") }, */
@@ -254,15 +257,15 @@ static Key keys[] = {
     { MODKEY,              XK_F9,          spawn,           SHCMD("dmenumount") },
     { MODKEY,              XK_F10,         spawn,           SHCMD("dmenuumount") },
     { MODKEY,              XK_F11,         spawn,           SHCMD("dmpc prev") },
-    { MODKEY|ShiftMask,    XK_F11,         spawn,           SHCMD("tppclt bseek") },
+    { MODKEY|ShiftMask,    XK_F11,         spawn,           SHCMD("tppclt seek -10") },
     { MODKEY,              XK_F12,         spawn,           SHCMD("dmpc next") },
-    { MODKEY|ShiftMask,    XK_F12,         spawn,           SHCMD("tppclt fseek") },
+    { MODKEY|ShiftMask,    XK_F12,         spawn,           SHCMD("tppclt seek 10") },
     /* { MODKEY|ShiftMask,    XK_F12,         xrdb,            {.v = NULL } }, */
     { MODKEY,              XK_space,       zoom,            {0} },
     { MODKEY|ShiftMask,    XK_space,       togglefloating,  {0} },
 
-    { 0,                   XK_Print,       spawn,           SHCMD("maim ~/Storage/F$(date '+%y%m%d-%H%M-%S').png") },
-    { MODKEY,              XK_Print,       spawn,           SHCMD("maimpick") },
+    { MODKEY,                   XK_Print,       spawn,      SHCMD("maim ~/Storage/F$(date '+%y%m%d-%H%M-%S').png") },
+    { MODKEY|ShiftMask,         XK_Print,       spawn,      SHCMD("maimpick") },
     /* { MODKEY,              XK_Delete,      togglescratch,   {.ui = 6} }, */
     /* { MODKEY,              XK_Scroll_Lock, spawn,           SHCMD("") }, */
 
@@ -275,9 +278,9 @@ static Key keys[] = {
     /* { 0,           XF86XK_AudioRaiseVolume,spawn,           SHCMD("pulsemixer --change-volume +5; kill -44 $(pidof dwmblocks)") }, */
     /* { 0,           XF86XK_AudioLowerVolume,spawn,           SHCMD("pulsemixer --change-volume -5; kill -44 $(pidof dwmblocks)") }, */
     { 0,        XF86XK_AudioPrev,          spawn,           SHCMD("dmpc prev") },
-    { MODKEY,   XF86XK_AudioPrev,          spawn,           SHCMD("tppctl bseek") },
+    { MODKEY,   XF86XK_AudioPrev,          spawn,           SHCMD("tppctl seek -10") },
     { 0,        XF86XK_AudioNext,          spawn,           SHCMD("dmpc next") },
-    { MODKEY,   XF86XK_AudioNext,          spawn,           SHCMD("tppctl fseek") },
+    { MODKEY,   XF86XK_AudioNext,          spawn,           SHCMD("tppctl seek 10") },
     { 0,        XF86XK_AudioPlay,          spawn,           SHCMD("tppctl invert") },
     { MODKEY,   XF86XK_AudioPlay,          spawn,           SHCMD("dmpc toggle") },
     { 0,        XF86XK_AudioStop,          togglescratch,   {.ui = 3 } },
