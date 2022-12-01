@@ -145,7 +145,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { TERMINAL, NULL };
 
 #include <X11/XF86keysym.h>
@@ -192,7 +192,7 @@ static Key keys[] = {
     { MODKEY,              XK_a,           togglescratch,   {.ui = 6} },
     /* { MODKEY|ShiftMask,    XK_a,          shifttag,          { .i = -1 } }, */
     { MODKEY,              XK_s,           togglesticky,    {0} },
-    { MODKEY,              XK_d,           spawn,           SHCMD("dmenu_run") },
+    { MODKEY,              XK_d,           spawn,           {.v = dmenucmd } },
     { MODKEY|ShiftMask,    XK_d,           spawn,           SHCMD("via") },
     { MODKEY,              XK_f,           togglefullscr,   {0} },
     { MODKEY|ShiftMask,    XK_f,           setlayout,       {.v = &layouts[13]} },
