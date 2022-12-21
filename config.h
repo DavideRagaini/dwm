@@ -12,13 +12,13 @@ static int smartgaps                = 1;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]        = {
-    /* "SymbolsNerdFont:size=9", */
-    /* "FontAwesome:size=9", */
-    /* "all-the-icons:size=9", */
-    "Fantasque Sans Mono:size=12:antialias=true:autohint=true",
-    "Liberation Mono:size=10:antialias=true:autohint=true",
-    "Linux Libertine Mono O:pixelsize=10:antialias=true:autohint=true" };
-static const char dmenufont[]       = "Liberation Mono:size=18";
+    "Fantasque Sans Mono:size=10:style=Bold:antialias=true:autohint=true",
+    "Liberation Mono:size=10:style=Bold:antialias=true:autohint=true",
+    "monospace:pixelsize=10:style=Bold:antialias=true:autohint=true",
+    "SymbolsNerdFont:size=10:antialias=true:autohint=true",
+    "FontAwesome:size=10:antialias=true:autohint=true",
+    "all-the-icons:size=10:antialias=true:autohint=true" };
+static const char dmenufont[]       = "Fantasque Sans Mono:size=16:style=Bold:antialias=true:autohint=true";
 static const char normbgcolor[]     = "#2F0B3A";
 static const char normbordercolor[] = "#BD93F9";
 static const char normfgcolor[]     = "#FF00FF";
