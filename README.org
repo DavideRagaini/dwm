@@ -1,5 +1,11 @@
 #+TITLE: Readme
 
+* Dependencies
+** libxft
+** libx11
+** libxinerama
+** libharfbuzz
+
 * Patches
 ** dwm
 *** [?] Multi-monitor

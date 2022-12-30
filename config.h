@@ -307,9 +307,9 @@ static Key keys[] = {
     /* { 0,        XF86XK_Launch6,            spawn,           SHCMD("") }, */
     { 0,        XF86XK_Launch7,           togglescratch,    {.ui = 3} },
     { 0,        XF86XK_Launch8,           spawn,            SHCMD("dmpc prev") },
-    { MODKEY,   XF86XK_Launch8,           spawn,            SHCMD("tppctl bseek") },
+    { MODKEY,   XF86XK_Launch8,           spawn,            SHCMD("tppctl seek -10") },
     { 0,        XF86XK_Launch9,           spawn,            SHCMD("dmpc next") },
-    { MODKEY,   XF86XK_Launch9,           spawn,            SHCMD("tppctl fseek") },
+    { MODKEY,   XF86XK_Launch9,           spawn,            SHCMD("tppctl seek 10") },
     /* {0,         XF86XK_Back,              shiftview,        {.i = -1} }, */
     /* {0,         XF86XK_Forward,           shiftview,        {.i = 1} }, */
 
