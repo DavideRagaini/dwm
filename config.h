@@ -12,7 +12,7 @@ static const unsigned int gappov    = 20;       /* vert outer gap between window
 static int smartgaps                = 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-#define FONT(name,size,style,...) name":size="size":style="style":antialias=true:autohint=true"
+#define FONT(name,size,style) name":size="size":style="style":antialias=true:autohint=true"
 static const char *fonts[]          = {
     FONT("Fantasque Sans Mono", FONT_SIZE, "Bold"),
     FONT("Liberation Mono", FONT_SIZE, "Bold"),
@@ -24,7 +24,6 @@ static const char *fonts[]          = {
     FONT("file-icons", FONT_SIZE, "Bold"),
     FONT("github-octicons", FONT_SIZE, "Bold"),
     FONT("all-the-icons", FONT_SIZE, "Bold") };
-/* static const char dmenufont[]       = "Fantasque Sans Mono:size=16:style=Bold:antialias=true:autohint=true"; */
 static const char dmenufont[]       = FONT("Fantasque Sans Mono", "12", "Bold");
 static const char normbgcolor[]     = "#2F0B3A";
 static const char normbordercolor[] = "#BD93F9";
