@@ -1,5 +1,6 @@
 #define TERMINAL "st"
 #define TERMCLASS "St"
+#define FONT_SIZE "10"
 #define TOUCHPAD 0
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -11,14 +12,20 @@ static const unsigned int gappov    = 20;       /* vert outer gap between window
 static int smartgaps                = 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]        = {
-    "Fantasque Sans Mono:size=10:style=Bold:antialias=true:autohint=true",
-    "Liberation Mono:size=10:style=Bold:antialias=true:autohint=true",
-    "monospace:pixelsize=10:style=Bold:antialias=true:autohint=true",
-    "SymbolsNerdFont:size=10:antialias=true:autohint=true",
-    "FontAwesome:size=10:antialias=true:autohint=true",
-    "all-the-icons:size=10:antialias=true:autohint=true" };
-static const char dmenufont[]       = "Fantasque Sans Mono:size=16:style=Bold:antialias=true:autohint=true";
+#define FONT(name,size,style,...) name":size="size":style="style":antialias=true:autohint=true"
+static const char *fonts[]          = {
+    FONT("Fantasque Sans Mono", FONT_SIZE, "Bold"),
+    FONT("Liberation Mono", FONT_SIZE, "Bold"),
+    FONT("monospace", FONT_SIZE, "Bold"),
+    FONT("SymbolsNerdFont", FONT_SIZE, "Bold"),
+    FONT("FontAwesome", FONT_SIZE, "Bold"),
+    FONT("Weather Icons", FONT_SIZE, "Bold"),
+    FONT("Material Icons", FONT_SIZE, "Bold"),
+    FONT("file-icons", FONT_SIZE, "Bold"),
+    FONT("github-octicons", FONT_SIZE, "Bold"),
+    FONT("all-the-icons", FONT_SIZE, "Bold") };
+/* static const char dmenufont[]       = "Fantasque Sans Mono:size=16:style=Bold:antialias=true:autohint=true"; */
+static const char dmenufont[]       = FONT("Fantasque Sans Mono", "12", "Bold");
 static const char normbgcolor[]     = "#2F0B3A";
 static const char normbordercolor[] = "#BD93F9";
 static const char normfgcolor[]     = "#FF00FF";
@@ -36,15 +43,15 @@ typedef struct {
     const void *cmd;
 } Sp;
 
-#define FTERM(name,size, ...) { TERMINAL, "-n", name, "-g", size, "-e", __VA_ARGS__, NULL }
+#define FTERM(name,size, ...) { TERMINAL, "-n", name, "-g", size, "-e", __VA_ARGS__ }
 const char *spcmd0[] = FTERM("sp-trm", "170x50", "tterm");
 const char *spcmd1[] = FTERM("sp-tlf", "170x50", "tlf");
-const char *spcmd2[] = FTERM("sp-clc", "60x30",  "wcalc","-P","-1","-c","-q","--ints","-C","-p","-r","--remember");
+const char *spcmd2[] = FTERM("sp-clc", "60x30",  "wcalc","-P","-1","-c","-q","--ints","-C","-p","-r","--remember", NULL);
 const char *spcmd3[] = FTERM("sp-pmx", "120x20", "pulsemixer");
 const char *spcmd4[] = FTERM("sp-nws", "150x50", "newsboat");
 const char *spcmd5[] = FTERM("sp-mpl", "160x50", "mp");
 const char *spcmd6[] = FTERM("sp-alm", "120x20", "sp-alm");
-const char *spcmd7[] = {"Eagenda",  NULL };
+const char *spcmd7[] = {"Eagenda"};
 
 static Sp scratchpads[] = {
    /* name        cmd  */
@@ -71,6 +78,7 @@ static const Rule rules[] = {
     { TERMCLASS,          NULL,     NULL,       0,        0,    0,    -1 },
     { "librewolf",        NULL,     NULL,       2,        0,    0,    -1 },
     { "qutebrowser",      NULL,     NULL,       2,        0,    0,    -1 },
+    { "KeePassXC",        NULL,     NULL,       2,        0,    0,    -1 },
     { "Chromium",         NULL,     NULL,    1<<7,        0,    0,    -1 },
     { "Psensor",          NULL,     NULL,    1<<7,        0,    0,    -1 },
     { "calibre",          NULL,     NULL,    1<<7,        0,    0,    -1 },
@@ -78,6 +86,7 @@ static const Rule rules[] = {
     { "TelegramDesktop",  NULL,     NULL,    1<<6,        0,    0,    -1 },
     { "easyeffects",      NULL,     NULL,    1<<6,        1,    1,    -1 },
     { "Ferdi",            NULL,     NULL,    1<<5,        0,    0,    -1 },
+    { "GNU Octave",       NULL,     NULL,    1<<5,        0,    0,    -1 },
     { "Tex-match",        NULL,     NULL,    1<<4,        0,    1,    -1 },
     { "Gimp",             NULL,     NULL,    1<<3,        0,    0,    -1 },
     { "Inkscape",         NULL,     NULL,    1<<3,        0,    0,    -1 },
@@ -200,13 +209,17 @@ static Key keys[] = {
     { MODKEY,              XK_g,           togglegaps,      {0} },
     { MODKEY|ShiftMask,    XK_g,           defaultgaps,     {0} },
     { MODKEY,              XK_h,           setmfact,        {.f = -0.05} },
+    { MODKEY|ShiftMask,    XK_h,           tagmon,          {.i = -1 } },
+    { MODKEY|ControlMask,  XK_h,           focusmon,        {.i = -1 } },
     { MODKEY,              XK_j,           focusstack,      {.i = +1 } },
-    { MODKEY,              XK_k,           focusstack,      {.i = -1 } },
     { MODKEY|ShiftMask,    XK_j,           movestack,       {.i = +1 } },
+    { MODKEY|ControlMask,  XK_j,           focusmon,        {.i = +1 } },
+    { MODKEY,              XK_k,           focusstack,      {.i = -1 } },
     { MODKEY|ShiftMask,    XK_k,           movestack,       {.i = -1 } },
-    { MODKEY|ControlMask,  XK_j,           focusmon,        {.i = -1 } },
-    { MODKEY|ControlMask,  XK_k,           focusmon,        {.i = +1 } },
+    { MODKEY|ControlMask,  XK_k,           focusmon,        {.i = -1 } },
     { MODKEY,              XK_l,           setmfact,        {.f = +0.05} },
+    { MODKEY|ShiftMask,    XK_l,           tagmon,          {.i = +1 } },
+    { MODKEY|ControlMask,  XK_l,           focusmon,        {.i = +1 } },
     /* { MODKEY,              XK_semicolon,  shiftview,        { .i = 1 } }, */
     /* { MODKEY|ShiftMask,    XK_semicolon,  shifttag,         { .i = 1 } }, */
     { MODKEY,              XK_apostrophe,  togglescratch,   {.ui = 2} },
@@ -224,7 +237,7 @@ static Key keys[] = {
     { MODKEY,              XK_comma,       spawn,           SHCMD("dmpc toggle") },
     { MODKEY,              XK_period,      spawn,           SHCMD("tppctl toggle") },
     { MODKEY|ShiftMask,    XK_period,      spawn,           SHCMD("tppctl invert") },
-    { MODKEY|ControlMask,  XK_period,      spawn,           SHCMD("tppctl pause_all") },
+    { MODKEY|ControlMask,  XK_period,      spawn,           SHCMD("tppctl pauseall") },
     { MODKEY,              XK_slash,       spawn,           SHCMD("mprisctl play-pause") },
 
     { MODKEY,              XK_Up,          spawn,           SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -39 $(pidof dwmblocks)") },
