@@ -259,7 +259,7 @@ static Key keys[] = {
 
     /* { MODKEY,              XK_F1,          spawn,           SHCMD("") }, */
     /* { MODKEY,              XK_F2,          spawn,           SHCMD("") }, */
-    { MODKEY,              XK_F3,          spawn,           SHCMD("wifi toggle && sleep 10 && pkill -RTMIN+3 dwmblocks") },
+    { MODKEY,              XK_F3,          spawn,           SHCMD("wifi-toggle && pkill -RTMIN+3 dwmblocks") },
     { MODKEY|ShiftMask,    XK_F3,          spawn,           SHCMD("bluetooth toggle && pkill -RTMIN+4 dwmblocks") },
     { MODKEY,              XK_F5,          spawn,           SHCMD("xrdb -merge ~/.config/x11/xresources-light") },
     { MODKEY|ShiftMask,    XK_F5,          spawn,           SHCMD("xrdb -remove") },
@@ -304,8 +304,8 @@ static Key keys[] = {
     { 0,        XF86XK_Calculator,         togglescratch,   {.ui = 2} },
     /* { MODKEY,   XF86XK_Calculator,         spawn,           SHCMD("") }, */
     /* { 0,        XF86XK_Sleep,              spawn,           SHCMD("") }, */
-    { 0,        XF86XK_WWW,                spawn,           SHCMD("wifi toggle && sleep 10 && pkill -RTMIN+3 dwmblocks") },
-    { 0,        XF86XK_WWAN,               spawn,           SHCMD("wifi toggle && sleep 10 && pkill -RTMIN+3 dwmblocks") },
+    { 0,        XF86XK_WWW,                spawn,           SHCMD("wifi-toggle && pkill -RTMIN+3 dwmblocks") },
+    { 0,        XF86XK_WWAN,               spawn,           SHCMD("wifi-toggle && pkill -RTMIN+3 dwmblocks") },
     /* { 0,        XF86XK_DOS,                spawn,           SHCMD("") }, */
     /* { 0,        XF86XK_ScreenSaver,        spawn,           SHCMD("") }, */
     /* { 0,        XF86XK_TaskPane,           spawn,           SHCMD("") }, */
