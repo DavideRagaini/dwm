@@ -232,7 +232,7 @@ static Key keys[] = {
     { MODKEY,              XK_b,           togglebar,       {0} },
     { MODKEY,              XK_n,           togglescratch,   {.ui = 4} },
     { MODKEY,              XK_m,           togglescratch,   {.ui = 5} },
-    { MODKEY|ShiftMask,    XK_m,           spawn,           SHCMD("pkill spotifyd; pkill spotify-tui") },
+    { MODKEY|ShiftMask,    XK_m,           spawn,           SHCMD("pkill spotifyd; pkill librespot; pkill spotify-tui") },
     { MODKEY,              XK_comma,       spawn,           SHCMD("dmpc toggle") },
     { MODKEY,              XK_period,      spawn,           SHCMD("tppctl toggle") },
     { MODKEY|ShiftMask,    XK_period,      spawn,           SHCMD("tppctl invert") },
@@ -243,12 +243,10 @@ static Key keys[] = {
     { MODKEY|ShiftMask,    XK_Up,          spawn,           SHCMD("output-audio") },
     { MODKEY,              XK_Down,        spawn,           SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -39 $(pidof dwmblocks)") },
     { MODKEY|ShiftMask,    XK_Down,        spawn,           SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -39 $(pidof dwmblocks)") },
-    { MODKEY,              XK_Left,        focusmon,        {.i = -1 } },
-    { MODKEY|ShiftMask,    XK_Left,        tagmon,          {.i = -1 } },
-    { MODKEY|ControlMask,  XK_Left,        spawn,           SHCMD("dmpc prev") },
-    { MODKEY,              XK_Right,       focusmon,        {.i = +1 } },
-    { MODKEY|ShiftMask,    XK_Right,       tagmon,          {.i = +1 } },
-    { MODKEY|ControlMask,  XK_Right,       spawn,           SHCMD("dmpc next") },
+    { MODKEY,              XK_Left,        spawn,           SHCMD("tppctl seek -10") },
+    { MODKEY|ShiftMask,    XK_Left,        spawn,           SHCMD("dmpc prev") },
+    { MODKEY,              XK_Right,       spawn,           SHCMD("tppctl seek +10") },
+    { MODKEY|ShiftMask,    XK_Right,       spawn,           SHCMD("dmpc next") },
 
     /* { MODKEY,              XK_Page_Up,     shiftview,       { .i = -1 } }, */
     /* { MODKEY|ShiftMask,    XK_Page_Up,     shifttag,        { .i = -1 } }, */
@@ -276,8 +274,9 @@ static Key keys[] = {
     { MODKEY,              XK_space,       zoom,            {0} },
     { MODKEY|ShiftMask,    XK_space,       togglefloating,  {0} },
 
-    { MODKEY,                   XK_Print,       spawn,      SHCMD("maim ~/Storage/F$(date '+%y%m%d-%H%M-%S').png") },
-    { MODKEY|ShiftMask,         XK_Print,       spawn,      SHCMD("maimpick") },
+    {0,                    XK_Print,       spawn,      SHCMD("maimpick") },
+    { MODKEY,              XK_Print,       spawn,      SHCMD("maim ~/Storage/F$(date '+%y%m%d-%H%M-%S').png") },
+    { MODKEY|ShiftMask,    XK_Print,       spawn,      SHCMD("maimpick") },
     /* { MODKEY,              XK_Delete,      togglescratch,   {.ui = 6} }, */
     /* { MODKEY,              XK_Scroll_Lock, spawn,           SHCMD("") }, */
 
@@ -314,7 +313,7 @@ static Key keys[] = {
     /* { 0,        XF86XK_Battery,            spawn,           SHCMD("") }, */
     /* { 0,        XF86XK_HomePage,           spawn,           SHCMD("") }, */
     /* { 0,        XF86XK_Search,             spawn,           SHCMD("") }, */
-    /* { 0,        XF86XK_Favorites,          togglescratch,   {.ui = 0 } }, */
+    { 0,        XF86XK_Favorites,             spawn,           SHCMD("remaps") },
     /* { 0,        XF86XK_Launch5,            spawn,           SHCMD("") }, */
     /* { 0,        XF86XK_Launch6,            spawn,           SHCMD("") }, */
     { 0,        XF86XK_Launch7,           togglescratch,    {.ui = 3} },
