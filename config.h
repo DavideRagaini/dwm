@@ -201,7 +201,7 @@ static Key keys[] = {
     /* { MODKEY|ShiftMask,    XK_a,          shifttag,          { .i = -1 } }, */
     { MODKEY,              XK_s,           togglesticky,    {0} },
     { MODKEY,              XK_d,           spawn,           {.v = dmenucmd } },
-    { MODKEY|ShiftMask,    XK_d,           spawn,           SHCMD("via") },
+    { MODKEY|ShiftMask,    XK_d,           spawn,           SHCMD("via -r") },
     { MODKEY,              XK_f,           togglefullscr,   {0} },
     { MODKEY|ShiftMask,    XK_f,           setlayout,       {.v = &layouts[13]} },
     { MODKEY|ControlMask,  XK_f,           setlayout,       {.v = &layouts[12]} },
@@ -259,8 +259,8 @@ static Key keys[] = {
     /* { MODKEY,              XK_F2,          spawn,           SHCMD("") }, */
     { MODKEY,              XK_F3,          spawn,           SHCMD("wifi-toggle && pkill -RTMIN+3 dwmblocks") },
     { MODKEY|ShiftMask,    XK_F3,          spawn,           SHCMD("bluetooth toggle && pkill -RTMIN+4 dwmblocks") },
-    { MODKEY,              XK_F5,          spawn,           SHCMD("xrdb -merge ~/.config/x11/xresources-light") },
-    { MODKEY|ShiftMask,    XK_F5,          spawn,           SHCMD("xrdb -remove") },
+    { MODKEY,              XK_F5,          spawn,           SHCMD("xrdb -load ~/.config/x11/Xresources_Light && notify-send 'Light Mode'") },
+    { MODKEY|ShiftMask,    XK_F5,          spawn,           SHCMD("xrdb -load ~/.config/x11/Xresources && notify-send 'Default Mode'") },
     { MODKEY,              XK_F6,          togglescratch,   {.ui = 3 } },
     { MODKEY,              XK_F7,          spawn,           SHCMD("i3lock -e -f -c 1d2021 -i ~/Storage/Pictures/lockscreen.png; xset dpms force off") },
     { MODKEY,              XK_F8,          spawn,           SHCMD("t-tlp") },
