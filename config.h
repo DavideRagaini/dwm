@@ -42,10 +42,10 @@ typedef struct {
     const void *cmd;
 } Sp;
 
-#define FTERM(name,size, ...) { TERMINAL, "-n", name, "-g", size, "-e", __VA_ARGS__ }
+#define FTERM(name,size, ...) { TERMINAL, "-n", name, "-g", size, "-e", __VA_ARGS__, NULL }
 const char *spcmd0[] = FTERM("sp-trm", "170x50", "tterm");
 const char *spcmd1[] = FTERM("sp-tlf", "170x50", "tlf");
-const char *spcmd2[] = FTERM("sp-clc", "60x30",  "wcalc","-P","-1","-c","-q","--ints","-C","-p","-r","--remember", NULL);
+const char *spcmd2[] = FTERM("sp-clc", "60x30",  "wcalc","-P","-1","-c","-q","--ints","-C","-p","-r","--remember");
 const char *spcmd3[] = FTERM("sp-pmx", "120x20", "pulsemixer");
 const char *spcmd4[] = FTERM("sp-nws", "150x50", "newsboat");
 const char *spcmd5[] = FTERM("sp-mpl", "160x50", "mp");
@@ -202,6 +202,7 @@ static Key keys[] = {
     { MODKEY,              XK_s,           togglesticky,    {0} },
     { MODKEY,              XK_d,           spawn,           {.v = dmenucmd } },
     { MODKEY|ShiftMask,    XK_d,           spawn,           SHCMD("via -r") },
+    { MODKEY|ControlMask,  XK_d,           spawn,           SHCMD("via -a") },
     { MODKEY,              XK_f,           togglefullscr,   {0} },
     { MODKEY|ShiftMask,    XK_f,           setlayout,       {.v = &layouts[13]} },
     { MODKEY|ControlMask,  XK_f,           setlayout,       {.v = &layouts[12]} },
