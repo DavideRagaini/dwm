@@ -169,7 +169,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask,    XK_BackSpace,   spawn,           SHCMD("sysact") },
 
     { MODKEY,              XK_Tab,         view,            {0} },
-    { MODKEY|ShiftMask,    XK_Tab,         spawn,           SHCMD("dunstctl history-pop") },
+    { MODKEY|ShiftMask,    XK_Tab,         spawn,           SHCMD("switch-active-window") },
     { MODKEY,              XK_q,           killclient,      {0} },
     /* { MODKEY|ShiftMask,    XK_q,           quit,            {0} }, */
     { MODKEY,              XK_w,           spawn,           SHCMD("$BROWSER") },
