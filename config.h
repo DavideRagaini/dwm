@@ -43,13 +43,13 @@ typedef struct {
 } Sp;
 
 #define FTERM(name,size, ...) { TERMINAL, "-n", name, "-g", size, "-e", __VA_ARGS__, NULL }
-const char *spcmd0[] = FTERM("sp-trm", "170x50", "tterm");
-const char *spcmd1[] = FTERM("sp-tlf", "170x50", "tlf");
-const char *spcmd2[] = FTERM("sp-clc", "60x30",  "wcalc","-P","-1","-c","-q","--ints","-C","-p","-r","--remember");
-const char *spcmd3[] = FTERM("sp-pmx", "120x20", "pulsemixer");
-const char *spcmd4[] = FTERM("sp-nws", "150x50", "newsboat");
-const char *spcmd5[] = FTERM("sp-mpl", "160x50", "mp");
-const char *spcmd6[] = FTERM("sp-alm", "120x20", "sp-alm");
+const char *spcmd0[] = FTERM("sp-trm", "200x60", "tterm");
+const char *spcmd1[] = FTERM("sp-tlf", "200x60", "tlf");
+const char *spcmd2[] = FTERM("sp-clc", "100x30", "wcalc","-P","-1","-c","-q","--ints","-C","-p","-r","--remember");
+const char *spcmd3[] = FTERM("sp-pmx", "130x20", "pulsemixer");
+const char *spcmd4[] = FTERM("sp-nws", "170x60", "newsboat");
+const char *spcmd5[] = FTERM("sp-mpl", "180x60", "mp");
+const char *spcmd6[] = FTERM("sp-alm", "140x40", "sp-alm");
 const char *spcmd7[] = {"Eagenda"};
 
 static Sp scratchpads[] = {
@@ -72,12 +72,13 @@ static const Rule rules[] = {
      *  WM_NAME(STRING) = title
      */
     /* class    instance    title    tags mask    iscentered    isfloating    monitor */
-    { "MATLAB R2019b - academic use",  NULL,  NULL,    1<<1,  0,  0,  -1 },
+    { "MATLAB R2019b - academic use",  NULL,  NULL,    1<<4,  0,  0,  -1 },
+    { "MATLAB R2021b - academic use",  NULL,  NULL,    1<<4,  0,  0,  -1 },
     { "Microsoft Teams - Preview",     NULL,  NULL,    1<<5,  0,  0,  -1 },
     { TERMCLASS,          NULL,     NULL,       0,        0,    0,    -1 },
     { "librewolf",        NULL,     NULL,       2,        0,    0,    -1 },
     { "qutebrowser",      NULL,     NULL,       2,        0,    0,    -1 },
-    { "KeePassXC",        NULL,     NULL,       2,        0,    0,    -1 },
+    { "KeePassXC",        NULL,     NULL,    1<<7,        0,    0,    -1 },
     { "Chromium",         NULL,     NULL,    1<<7,        0,    0,    -1 },
     { "Psensor",          NULL,     NULL,    1<<7,        0,    0,    -1 },
     { "calibre",          NULL,     NULL,    1<<7,        0,    0,    -1 },
@@ -173,8 +174,8 @@ static Key keys[] = {
     { MODKEY,              XK_q,           killclient,      {0} },
     /* { MODKEY|ShiftMask,    XK_q,           quit,            {0} }, */
     { MODKEY,              XK_w,           spawn,           SHCMD("$BROWSER") },
-    { MODKEY|ShiftMask,    XK_w,           spawn,           SHCMD("$BROWSER2") },
-    { MODKEY|ControlMask,  XK_w,           spawn,           SHCMD("librewolf --private-window") },
+    { MODKEY|ShiftMask,    XK_w,           spawn,           SHCMD("ALTERNATE_BROWSER") },
+    { MODKEY|ControlMask,  XK_w,           spawn,           SHCMD("ALTERNATE_BROWSER_PRIVATE") },
     { MODKEY,              XK_e,           togglescratch,   {.ui = 7} },
     { MODKEY|ShiftMask,    XK_e,           spawn,           SHCMD("emacsclient -c -a 'emacs'") },
     { MODKEY,              XK_r,           togglescratch,   {.ui = 1} },
@@ -260,7 +261,7 @@ static Key keys[] = {
     /* { MODKEY,              XK_F2,          spawn,           SHCMD("") }, */
     { MODKEY,              XK_F3,          spawn,           SHCMD("wifi-toggle && pkill -RTMIN+3 dwmblocks") },
     { MODKEY|ShiftMask,    XK_F3,          spawn,           SHCMD("bluetooth toggle && pkill -RTMIN+4 dwmblocks") },
-    { MODKEY,              XK_F5,          spawn,           SHCMD("xrdb -load ~/.config/x11/Xresources_Light && notify-send 'Light Mode'") },
+    { MODKEY,              XK_F5,          spawn,           SHCMD("xrdb -override ~/.config/x11/Xresources_Light && notify-send 'Light Mode'") },
     { MODKEY|ShiftMask,    XK_F5,          spawn,           SHCMD("xrdb -load ~/.config/x11/Xresources && notify-send 'Default Mode'") },
     { MODKEY,              XK_F6,          togglescratch,   {.ui = 3 } },
     { MODKEY,              XK_F7,          spawn,           SHCMD("i3lock -e -f -c 1d2021 -i ~/Storage/Pictures/lockscreen.png; xset dpms force off") },
