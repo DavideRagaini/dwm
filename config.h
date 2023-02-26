@@ -174,8 +174,8 @@ static Key keys[] = {
     { MODKEY,              XK_q,           killclient,      {0} },
     /* { MODKEY|ShiftMask,    XK_q,           quit,            {0} }, */
     { MODKEY,              XK_w,           spawn,           SHCMD("$BROWSER") },
-    { MODKEY|ShiftMask,    XK_w,           spawn,           SHCMD("ALTERNATE_BROWSER") },
-    { MODKEY|ControlMask,  XK_w,           spawn,           SHCMD("ALTERNATE_BROWSER_PRIVATE") },
+    { MODKEY|ShiftMask,    XK_w,           spawn,           SHCMD("$ALTERNATE_BROWSER") },
+    { MODKEY|ControlMask,  XK_w,           spawn,           SHCMD("$ALTERNATE_BROWSER_PRIVATE") },
     { MODKEY,              XK_e,           togglescratch,   {.ui = 7} },
     { MODKEY|ShiftMask,    XK_e,           spawn,           SHCMD("emacsclient -c -a 'emacs'") },
     { MODKEY,              XK_r,           togglescratch,   {.ui = 1} },
