@@ -154,7 +154,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run_history", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { TERMINAL, NULL };
+static const char *termcmd[]  = { TERMINAL, "-e", "tmux", NULL };
 
 #include <X11/XF86keysym.h>
 #include "movestack.c"
